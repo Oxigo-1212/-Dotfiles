@@ -5,6 +5,7 @@ return {
 		tag = "v0.2.0",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
+	{ "nvim-mini/mini.move", version = "*" },
 	{
 		"stevearc/oil.nvim",
 		dependencies = { { "nvim-mini/mini.icons", opts = {} } },

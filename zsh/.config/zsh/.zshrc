@@ -1,3 +1,7 @@
+export NVM_DIR="$HOME/.nvm"
+source /usr/share/nvm/nvm.sh
+source /usr/share/nvm/bash_completion
+source /usr/share/nvm/install-nvm-exec
 export ZSH="$HOME/.oh-my-zsh"
 export ELECTRON_OZONE_PLATFORM_HINT=wayland
 export ELECTRON_ENABLE_WAYLAND_DMD=1

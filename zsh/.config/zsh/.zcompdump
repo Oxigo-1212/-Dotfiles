@@ -879,7 +879,6 @@ _comps=(
 'ntalk' '_other_accounts'
 'numfmt' '_numfmt'
 'nvim' '_vim'
-'nvm' '_bash_complete -o default -F __nvm'
 'objdump' '_objdump'
 'od' '_od'
 'ogg123' '_vorbis'
@@ -1885,6 +1884,3 @@ autoload -Uz +X _call_program
 
 typeset -gUa _comp_assocs
 _comp_assocs=( '' )
-
-#omz revision: 0f45f82c0afdcaf71b193e349d01c069a3fb9de7
-#omz fpath: /home/oxigo/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting /home/oxigo/.oh-my-zsh/custom/plugins/zsh-autosuggestions /home/oxigo/.oh-my-zsh/plugins/git /home/oxigo/.oh-my-zsh/functions /home/oxigo/.oh-my-zsh/completions /home/oxigo/.oh-my-zsh/custom/functions /home/oxigo/.oh-my-zsh/custom/completions /home/oxigo/.oh-my-zsh/cache/completions /usr/local/share/zsh/site-functions /usr/share/zsh/site-functions /usr/share/zsh/functions/Calendar /usr/share/zsh/functions/Chpwd /usr/share/zsh/functions/Completion /usr/share/zsh/functions/Completion/Base /usr/share/zsh/functions/Completion/Linux /usr/share/zsh/functions/Completion/Unix /usr/share/zsh/functions/Completion/X /usr/share/zsh/functions/Completion/Zsh /usr/share/zsh/functions/Exceptions /usr/share/zsh/functions/MIME /usr/share/zsh/functions/Math /usr/share/zsh/functions/Misc /usr/share/zsh/functions/Newuser /usr/share/zsh/functions/Prompts /usr/share/zsh/functions/TCP /usr/share/zsh/functions/VCS_Info /usr/share/zsh/functions/VCS_Info/Backends /usr/share/zsh/functions/Zftp /usr/share/zsh/functions/Zle

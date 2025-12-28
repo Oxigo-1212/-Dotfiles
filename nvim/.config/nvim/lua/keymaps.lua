@@ -35,4 +35,4 @@ vim.keymap.set("n", "<leader>fc", ":Telescope colorscheme<CR>", { desc = "Change
 vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", { desc = "List open buffers" })
 vim.keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>", { desc = "Find help tags" })
 vim.keymap.set("n", "<leader>fo", ":Telescope oldfiles<CR>", { desc = "Find recently opened files" })
-vim.keymap.set("n", "<leader>fr", ":Telescope diagnostics", { desc = "Find all diagnostics" })
+vim.keymap.set("n", "<leader>fr", ":Telescope diagnostics<CR>", { desc = "Find all diagnostics" })
