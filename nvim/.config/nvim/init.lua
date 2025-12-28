@@ -14,6 +14,8 @@ vim.opt.smartindent = true
 vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.number = true
+vim.opt.autochdir = true
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -48,7 +50,6 @@ require("compile")
 require("layout")
 require("mason").setup()
 require("mini.surround").setup()
-require("mini.pick").setup()
 require("lualine").setup()
 require("oil").setup({
 	default_file_explorer = true,
@@ -106,5 +107,5 @@ require("madol").setup({
 require("luasnip").config.setup({
 	enable_autosnippets = true,
 })
-vim.cmd("colorscheme catppuccin")
+vim.cmd("colorscheme vague")
 vim.cmd(":hi statusline guibg=NONE")

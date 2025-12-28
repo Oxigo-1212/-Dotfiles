@@ -20,7 +20,10 @@ return {
 			["<C-up>"] = { "scroll_documentation_up", "fallback" },
 			["<C-down>"] = { "scroll_documentation_down", "fallback" },
 		},
-		completion = { documentation = { auto_show = false } },
+		completion = {
+			documentation = { auto_show = false },
+			ghost_text = { enabled = false },
+		},
 
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer", "copilot" },
