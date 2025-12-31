@@ -1,13 +1,12 @@
 vim.cmd([[set noswapfile]])
 vim.cmd([[hi @lsp.type.number gui=italic]])
-vim.opt.fillchars:append({ eob = " " })
+
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.winborder = "rounded"
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.signcolumn = "yes"
-vim.opt.wrap = false
 vim.opt.cursorcolumn = false
 vim.opt.ignorecase = true
 vim.opt.smartindent = true
@@ -18,7 +17,7 @@ vim.opt.autochdir = true
 vim.opt.wrap = true
 vim.opt.linebreak = true
 vim.opt.showbreak = " "
-vim.opt.textwidth = 80
+vim.opt.textwidth = 250
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -27,7 +26,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out, "WarningMsg" },
+			{ out,                            "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 		vim.fn.getchar()
@@ -54,7 +53,36 @@ require("layout")
 require("mason").setup()
 require("mini.surround").setup()
 require("mini.move").setup()
-require("lualine").setup()
+require("lualine").setup({
+	options = {
+		icons_enabled = false,
+		component_separators = "",
+		section_separators = "",
+		theme = "auto",
+	},
+	sections = {
+		lualine_a = {},
+		lualine_b = {},
+		lualine_c = {
+			{
+				"diagnostics",
+				colored = true,
+			},
+			{
+				"filename",
+				path = 4,
+				colored = true,
+				color = { fg = "#C5C9C7" },
+			},
+		},
+		lualine_x = { "encoding", "fileformat", "filetype" },
+		lualine_y = {
+			{ "diff", colored = true, color = { bg = "none" } },
+		},
+		lualine_z = {},
+	},
+})
+require("mini.pairs").setup()
 require("oil").setup({
 	default_file_explorer = true,
 	delete_to_trash = true,
@@ -111,5 +139,5 @@ require("madol").setup({
 require("luasnip").config.setup({
 	enable_autosnippets = true,
 })
-vim.cmd("colorscheme vague")
+vim.cmd("colorscheme kanso-zen")
 vim.cmd(":hi statusline guibg=NONE")

@@ -5,11 +5,16 @@ return {
 		tag = "v0.2.0",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
+	{ "nvim-mini/mini.pairs", version = "*" },
 	{ "nvim-mini/mini.move", version = "*" },
 	{
 		"stevearc/oil.nvim",
 		dependencies = { { "nvim-mini/mini.icons", opts = {} } },
 		lazy = false,
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 	{ "nvim-lua/plenary.nvim" },
 	{
@@ -44,10 +49,6 @@ return {
 			{ "mason-org/mason.nvim", opts = {} },
 			"neovim/nvim-lspconfig",
 		},
-	},
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 	{
 		"L3MON4D3/LuaSnip",
