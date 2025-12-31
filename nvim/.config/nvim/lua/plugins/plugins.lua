@@ -12,10 +12,6 @@ return {
 		dependencies = { { "nvim-mini/mini.icons", opts = {} } },
 		lazy = false,
 	},
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
 	{ "nvim-lua/plenary.nvim" },
 	{
 		"vyfor/cord.nvim",

@@ -26,7 +26,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out,                            "WarningMsg" },
+			{ out, "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 		vim.fn.getchar()
@@ -46,6 +46,10 @@ require("lazy").setup({
 	},
 	checker = { enabled = true },
 })
+vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
+-- Statusline colors (transparent background, kanso-ink theme colors)
+vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
+vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
 require("keymaps")
 require("autocmd")
 require("compile")
@@ -53,35 +57,6 @@ require("layout")
 require("mason").setup()
 require("mini.surround").setup()
 require("mini.move").setup()
-require("lualine").setup({
-	options = {
-		icons_enabled = false,
-		component_separators = "",
-		section_separators = "",
-		theme = "auto",
-	},
-	sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = {
-			{
-				"diagnostics",
-				colored = true,
-			},
-			{
-				"filename",
-				path = 4,
-				colored = true,
-				color = { fg = "#C5C9C7" },
-			},
-		},
-		lualine_x = { "encoding", "fileformat", "filetype" },
-		lualine_y = {
-			{ "diff", colored = true, color = { bg = "none" } },
-		},
-		lualine_z = {},
-	},
-})
 require("mini.pairs").setup()
 require("oil").setup({
 	default_file_explorer = true,
