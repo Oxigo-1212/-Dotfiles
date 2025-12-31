@@ -1,12 +1,12 @@
 return {
-	{ "nvim-treesitter/nvim-treesitter", lazy = false, build = ":TSUpdate" },
+	{ "nvim-treesitter/nvim-treesitter", branch = "main", lazy = false, build = ":TSUpdate" },
+	{ "brenoprata10/nvim-highlight-colors" },
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "v0.2.0",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 	{ "nvim-mini/mini.pairs", version = "*" },
-	{ "nvim-mini/mini.move", version = "*" },
 	{
 		"stevearc/oil.nvim",
 		dependencies = { { "nvim-mini/mini.icons", opts = {} } },
@@ -19,17 +19,11 @@ return {
 		-- opts = {}
 	},
 	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		keys = {
-			{
-				"<leader>?",
-				function()
-					require("which-key").show({ global = false })
-				end,
-				desc = "Buffer Local Keymaps (which-key)",
-			},
-		},
+		"stevearc/quicker.nvim",
+		ft = "qf",
+		---@module "quicker"
+		---@type quicker.SetupOptions
+		opts = {},
 	},
 	{
 		"stevearc/quicker.nvim",
@@ -64,9 +58,6 @@ return {
 		end,
 	},
 	{ "nvim-mini/mini.surround", version = "*" },
-	{
-		"saghen/blink.indent",
-	},
 	{
 		"j-hui/fidget.nvim",
 	},

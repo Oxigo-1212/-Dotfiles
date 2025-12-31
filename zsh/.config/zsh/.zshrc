@@ -44,9 +44,9 @@ show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head
 
 # ------------FZF--------------
 # Set up fzf key bindings and fuzzy completion
-export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git "
+export FZF_DEFAULT_COMMAND="fd . $HOME --exclude '.{cache,gem,git,npm,parallel,Trash}' --exclude '{Library,Music,node_modules,Pictures}/' --hidden --exclude .git "
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+export FZF_ALT_C_COMMAND="fd  --hidden --strip-cwd-prefix --exclude .git"
 
 export FZF_DEFAULT_OPTS="--height 50% --layout=default --border --color=hl:#2dd4bf"
 

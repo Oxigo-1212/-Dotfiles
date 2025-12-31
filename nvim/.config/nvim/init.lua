@@ -1,6 +1,8 @@
 vim.cmd([[set noswapfile]])
 vim.cmd([[hi @lsp.type.number gui=italic]])
-
+vim.opt.backup = false
+vim.opt.termguicolors = true
+vim.opt.startofline = false
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.winborder = "rounded"
@@ -13,12 +15,12 @@ vim.opt.smartindent = true
 vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.autochdir = true
 vim.opt.wrap = true
 vim.opt.linebreak = true
 vim.opt.showbreak = " "
 vim.opt.textwidth = 250
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -47,17 +49,19 @@ require("lazy").setup({
 	checker = { enabled = true },
 })
 vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
--- Statusline colors (transparent background, kanso-ink theme colors)
 vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
+require("nvim-highlight-colors").setup({})
 require("keymaps")
 require("autocmd")
 require("compile")
 require("layout")
 require("mason").setup()
 require("mini.surround").setup()
-require("mini.move").setup()
 require("mini.pairs").setup()
+require("kanso").setup({
+	transparent = true,
+})
 require("oil").setup({
 	default_file_explorer = true,
 	delete_to_trash = true,
@@ -65,7 +69,6 @@ require("oil").setup({
 	columns = {
 		"icon",
 		"permissions",
-		"mtime",
 	},
 	view_options = {
 		show_hidden = true,
@@ -108,6 +111,22 @@ require("madol").setup({
 			["math-brackets"] = true,
 			["greek-tex"] = false,
 			["greek-unicode"] = true,
+		},
+	},
+})
+require("telescope").setup({
+	pickers = {
+		find_files = {
+			hidden = true,
+		},
+		buffers = {
+			initial_mode = "normal",
+		},
+		find_files = {
+			initial_mode = "normal",
+		},
+		diagnostics = {
+			initial_mode = "normal",
 		},
 	},
 })
