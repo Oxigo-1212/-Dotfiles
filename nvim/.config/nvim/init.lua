@@ -1,7 +1,6 @@
 vim.cmd([[set noswapfile]])
 vim.cmd([[hi @lsp.type.number gui=italic]])
 vim.opt.backup = false
-vim.opt.termguicolors = true
 vim.opt.startofline = false
 vim.opt.splitbelow = true
 vim.opt.splitright = true
@@ -49,10 +48,16 @@ vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
 require("multigrep").setup()
-require("nvim-highlight-colors").setup({})
+require("nvim-highlight-colors").setup()
+require("fidget").setup({
+	notification = {
+		window = {
+			winblend = 0,
+		},
+	},
+})
 require("keymaps")
 require("autocmd")
-require("compile")
 require("layout")
 require("mason").setup()
 require("mini.surround").setup()
@@ -143,6 +148,7 @@ require("telescope").load_extension("fzf")
 require("telescope.builtin").lsp_workspace_symbols({
 	symbols = { "class", "function", "method" },
 })
+require("telescope").load_extension("fidget")
 require("luasnip").config.setup({
 	enable_autosnippets = true,
 })

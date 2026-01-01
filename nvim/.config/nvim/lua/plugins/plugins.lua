@@ -21,13 +21,7 @@ return {
 	{
 		"stevearc/quicker.nvim",
 		ft = "qf",
-		---@module "quicker"
-		---@type quicker.SetupOptions
 		opts = {},
-	},
-	{
-		"stevearc/quicker.nvim",
-		ft = "qf",
 	},
 	{ "gbprod/yanky.nvim" },
 	{ "mason-org/mason.nvim" },
@@ -58,9 +52,6 @@ return {
 		end,
 	},
 	{ "nvim-mini/mini.surround", version = "*" },
-	{
-		"j-hui/fidget.nvim",
-	},
 	{
 		"j-hui/fidget.nvim",
 	},
