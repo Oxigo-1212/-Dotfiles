@@ -13,6 +13,9 @@ vim.keymap.set("n", "<leader>lD", vim.lsp.buf.declaration, { desc = "Go to decla
 vim.keymap.set("n", "<leader>li", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 vim.keymap.set("n", "<leader>lR", vim.lsp.buf.rename, { desc = "Rename all occurences" })
 vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, { desc = "Go to references" })
+vim.keymap.set("n", "<leader>lo", builtin.lsp_workspace_symbols, { desc = "Find all objects in the workspace" })
+vim.keymap.set("n", "<leader>lf", builtin.lsp_document_symbols, { desc = "Find all function and method in a file" })
+vim.keymap.set("n", "<leader>lb", builtin.diagnostics, { desc = "Find all diagnostics" })
 vim.keymap.set("n", "<leader>lt", function()
 	local is_enabled = vim.diagnostic.is_enabled()
 	vim.diagnostic.enable(not is_enabled)
@@ -30,12 +33,10 @@ vim.keymap.set("n", "<C-M-Right>", ":vertical resize +2<CR>", { desc = "Increase
 vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete buffer" })
 vim.keymap.set("n", "<leader>bD", ":bdelete!<CR>", { desc = "Force delete buffer" })
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files in cwd" })
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find pattern using grep" })
 vim.keymap.set("n", "<leader>fc", builtin.colorscheme, { desc = "Change colorscheme" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "List open buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
 vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Find recently opened files" })
-vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Find all diagnostics" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Open buffer navigation" })
 
 -- Minor remap from ThePrimeagen
@@ -55,3 +56,5 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
+
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww ~/.config/tmux/scripts/tmux-sessionizer<CR>")

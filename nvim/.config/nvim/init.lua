@@ -17,10 +17,7 @@ vim.opt.undofile = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.autochdir = true
-vim.opt.wrap = true
-vim.opt.linebreak = true
-vim.opt.showbreak = " "
-vim.opt.textwidth = 250
+vim.opt.wrap = false
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -51,6 +48,7 @@ require("lazy").setup({
 vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
+require("multigrep").setup()
 require("nvim-highlight-colors").setup({})
 require("keymaps")
 require("autocmd")
@@ -115,6 +113,14 @@ require("madol").setup({
 	},
 })
 require("telescope").setup({
+	extensions = {
+		fzf = {
+			fuzzy = true,
+			override_generic_sorter = true,
+			override_file_sorter = true,
+			case_mode = "smart_case",
+		},
+	},
 	pickers = {
 		find_files = {
 			hidden = true,
@@ -128,7 +134,14 @@ require("telescope").setup({
 		diagnostics = {
 			initial_mode = "normal",
 		},
+		colorscheme = {
+			initial_mode = "normal",
+		},
 	},
+})
+require("telescope").load_extension("fzf")
+require("telescope.builtin").lsp_workspace_symbols({
+	symbols = { "class", "function", "method" },
 })
 require("luasnip").config.setup({
 	enable_autosnippets = true,
