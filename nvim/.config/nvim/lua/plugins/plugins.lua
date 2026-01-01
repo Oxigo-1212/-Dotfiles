@@ -1,5 +1,5 @@
 return {
-	{ "nvim-treesitter/nvim-treesitter", branch = "main", lazy = false, build = ":TSUpdate" },
+	{ "nvim-treesitter/nvim-treesitter",   branch = "main", lazy = false, build = ":TSUpdate" },
 	{ "brenoprata10/nvim-highlight-colors" },
 	{
 		"nvim-telescope/telescope.nvim",
@@ -55,4 +55,5 @@ return {
 	{
 		"j-hui/fidget.nvim",
 	},
+	{ 'akinsho/toggleterm.nvim', version = "*", config = true }
 }

@@ -54,3 +54,16 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww ~/.config/tmux/scripts/tmux-sessionizer<CR>")
+
+vim.keymap.set("n", "<space>t", function()
+	vim.cmd.vnew()
+	vim.cmd.term()
+	vim.cmd.wincmd("J")
+	vim.api.nvim_win_set_height(0, 10)
+
+	job_id = vim.bo.channel
+end)
+vim.keymap.set("t", "<C-l>", function()
+	vim.fn.chansend(job_id, { "clear\r\n" })
+end)
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
