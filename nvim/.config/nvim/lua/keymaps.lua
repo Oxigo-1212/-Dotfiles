@@ -26,8 +26,7 @@ vim.keymap.set("n", "<C-M-Up>", ":resize +2<CR>", { desc = "Increase window heig
 vim.keymap.set("n", "<C-M-Down>", ":resize -2<CR>", { desc = "Decrease window height" })
 vim.keymap.set("n", "<C-M-Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<C-M-Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
-vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete buffer" })
-vim.keymap.set("n", "<leader>bD", ":bdelete!<CR>", { desc = "Force delete buffer" })
+vim.keymap.set("n", "<leader>bd", ":bdelete!<CR>", { desc = "Force delete buffer" })
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files in cwd" })
 vim.keymap.set("n", "<leader>fc", builtin.colorscheme, { desc = "Change colorscheme" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "List open buffers" })
@@ -60,10 +59,14 @@ vim.keymap.set("n", "<space>t", function()
 	vim.cmd.term()
 	vim.cmd.wincmd("J")
 	vim.api.nvim_win_set_height(0, 10)
-
-	job_id = vim.bo.channel
 end)
 vim.keymap.set("t", "<C-l>", function()
-	vim.fn.chansend(job_id, { "clear\r\n" })
+	---@diagnostic disable-next-line: deprecated
+	local chan = vim.api.nvim_buf_get_option(0, 'channel')
+	if chan == 0 then
+		vim.notify("No terminal channel found", vim.log.levels.WARN)
+		return
+	end
+	vim.api.nvim_feedkeys("clear\r", "t", false)
 end)
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
