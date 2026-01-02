@@ -55,10 +55,36 @@ vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww ~/.config/tmux/scripts/tmux-sessionizer<CR>")
 
 vim.keymap.set("n", "<space>t", function()
-	vim.cmd.vnew()
-	vim.cmd.term()
+	-- Check if a terminal buffer already exists
+	local term_buf = nil
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buftype == "terminal" then
+			term_buf = buf
+			break
+		end
+	end
+
+	-- Check if terminal is already visible in a window
+	if term_buf then
+		for _, win in ipairs(vim.api.nvim_list_wins()) do
+			if vim.api.nvim_win_get_buf(win) == term_buf then
+				-- Terminal already visible, just focus it
+				vim.api.nvim_set_current_win(win)
+				return
+			end
+		end
+	-- Terminal exists but not visible, open it in a new window
+	vim.cmd.split()
+	vim.api.nvim_win_set_buf(0, term_buf)
 	vim.cmd.wincmd("J")
 	vim.api.nvim_win_set_height(0, 10)
+	else
+		-- No terminal exists, create a new one
+		vim.cmd.vnew()
+		vim.cmd.term()
+		vim.cmd.wincmd("J")
+		vim.api.nvim_win_set_height(0, 10)
+	end
 end)
 vim.keymap.set("t", "<C-l>", function()
 	---@diagnostic disable-next-line: deprecated
