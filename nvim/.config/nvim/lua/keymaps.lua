@@ -73,11 +73,11 @@ vim.keymap.set("n", "<space>t", function()
 				return
 			end
 		end
-	-- Terminal exists but not visible, open it in a new window
-	vim.cmd.split()
-	vim.api.nvim_win_set_buf(0, term_buf)
-	vim.cmd.wincmd("J")
-	vim.api.nvim_win_set_height(0, 10)
+		-- Terminal exists but not visible, open it in a new window
+		vim.cmd.split()
+		vim.api.nvim_win_set_buf(0, term_buf)
+		vim.cmd.wincmd("J")
+		vim.api.nvim_win_set_height(0, 10)
 	else
 		-- No terminal exists, create a new one
 		vim.cmd.vnew()
@@ -96,3 +96,9 @@ vim.keymap.set("t", "<C-l>", function()
 	vim.api.nvim_feedkeys("clear\r", "t", false)
 end)
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+vim.keymap.set("n", "<leader>w", function()
+	local is_wrap_enabled = vim.wo.wrap
+	vim.wo.wrap = not is_wrap_enabled
+	vim.wo.linebreak = not is_wrap_enabled
+	vim.notify("Line wrap " .. (is_wrap_enabled and "Disabled" or "Enabled"))
+end, { desc = "Toggle line wrap" })

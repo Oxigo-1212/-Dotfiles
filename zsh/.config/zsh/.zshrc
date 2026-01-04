@@ -1,8 +1,11 @@
-export NVM_DIR="$HOME/.nvm"
+# Zsh history
+export HISTFILE="$XDG_STATE_HOME/zsh/history"
+
+export NVM_DIR="$XDG_DATA_HOME/nvm"
 source /usr/share/nvm/nvm.sh
 source /usr/share/nvm/bash_completion
 source /usr/share/nvm/install-nvm-exec
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$XDG_DATA_HOME/oh-my-zsh"
 export ELECTRON_OZONE_PLATFORM_HINT=wayland
 export ELECTRON_ENABLE_WAYLAND_DMD=1
 export EDITOR=nvim
@@ -19,6 +22,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/scripts/changecwd.sh
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 # Initialize fzf
 eval "$(fzf --zsh)"
@@ -72,6 +76,8 @@ bindkey -s '^[l' 'ls -a\n'
 alias rs='systemctl --user restart lid-monitor.service'
 alias mln='cp -r ~/Documents/latex/LaTeX-Templates/"Lecture Notes"/Main.tex ~/Documents/latex/LaTeX-Templates/"Lecture Notes"/Lectures -t .'
 alias mpn='cp -r ~/Documents/latex/LaTeX-Templates/Homework/HomeworkTemplate.tex -t .'
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
 # Define a function to wrap nvim
 # Wrapper function for nvim
  nvim() {
@@ -90,4 +96,5 @@ alias mpn='cp -r ~/Documents/latex/LaTeX-Templates/Homework/HomeworkTemplate.tex
         rm -f "$tmp_file"
     fi
 }
+
 . "$HOME/.local/bin/env"

@@ -1,12 +1,11 @@
 return {
-	{ "nvim-treesitter/nvim-treesitter",   branch = "main", lazy = false, build = ":TSUpdate" },
 	{ "brenoprata10/nvim-highlight-colors" },
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "v0.2.0",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
-	{ "nvim-mini/mini.pairs", version = "*" },
+	{ "nvim-mini/mini.pairs",              version = "*" },
 	{
 		"stevearc/oil.nvim",
 		dependencies = { { "nvim-mini/mini.icons", opts = {} } },
@@ -25,7 +24,7 @@ return {
 	},
 	{ "gbprod/yanky.nvim" },
 	{ "mason-org/mason.nvim" },
-	{ "mrcjkb/rustaceanvim", version = "^6", lazy = false },
+	{ "mrcjkb/rustaceanvim",  version = "^6", lazy = false },
 	{
 		"mason-org/mason-lspconfig.nvim",
 		opts = {},
@@ -55,5 +54,6 @@ return {
 	{
 		"j-hui/fidget.nvim",
 	},
-	{ 'akinsho/toggleterm.nvim', version = "*", config = true }
+	{ 'akinsho/toggleterm.nvim', version = "*", config = true },
+	{ "romainl/vim-cool" }
 }
