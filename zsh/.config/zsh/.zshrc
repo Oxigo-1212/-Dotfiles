@@ -1,6 +1,5 @@
 # Zsh history
 export HISTFILE="$XDG_STATE_HOME/zsh/history"
-
 export NVM_DIR="$XDG_DATA_HOME/nvm"
 source /usr/share/nvm/nvm.sh
 source /usr/share/nvm/bash_completion
@@ -70,7 +69,8 @@ alias oxigo='tmux has-session -t Oxigo 2>/dev/null && tmux attach-session -t Oxi
 alias n='nvim'
 alias z='zathura'
 alias opencode='opencode -c'
-
+alias vim='nvim'
+alias vi='nvim'
 bindkey -s '^[l' 'ls -a\n'
 
 alias rs='systemctl --user restart lid-monitor.service'
@@ -98,3 +98,7 @@ alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
 }
 
 . "$HOME/.local/bin/env"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

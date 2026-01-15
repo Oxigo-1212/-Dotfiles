@@ -11,4 +11,5 @@ return {
 			"neovim/nvim-lspconfig",
 		},
 	},
+	{ 'WhoIsSethDaniel/mason-tool-installer.nvim' }
 }

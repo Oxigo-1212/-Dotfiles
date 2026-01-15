@@ -47,6 +47,8 @@ require("lazy").setup({
 vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
+vim.cmd("colorscheme kanso-zen")
+vim.cmd(":hi statusline guibg=NONE")
 require("multigrep").setup()
 require("nvim-highlight-colors").setup()
 require("fidget").setup({
@@ -74,7 +76,7 @@ require("oil").setup({
 		"permissions",
 	},
 	view_options = {
-		show_hidden = true,
+		show_hidden = false,
 	},
 	win_options = {
 		wrap = true,
@@ -152,5 +154,3 @@ require("telescope").load_extension("fidget")
 require("luasnip").config.setup({
 	enable_autosnippets = true,
 })
-vim.cmd("colorscheme kanso-zen")
-vim.cmd(":hi statusline guibg=NONE")

@@ -17,6 +17,7 @@ return {
 				"rust",
 				"html",
 				"latex",
+				"kotlin",
 			})
 
 			-- Enable highlighting and indentation globally for all filetypes
