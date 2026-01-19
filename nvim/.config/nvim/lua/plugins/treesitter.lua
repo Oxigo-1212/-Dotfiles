@@ -18,6 +18,8 @@ return {
 				"html",
 				"latex",
 				"kotlin",
+				"python",
+				"ocaml"
 			})
 
 			-- Enable highlighting and indentation globally for all filetypes

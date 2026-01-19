@@ -11,5 +11,11 @@ return {
 			"neovim/nvim-lspconfig",
 		},
 	},
-	{ 'WhoIsSethDaniel/mason-tool-installer.nvim' }
+	{ 'WhoIsSethDaniel/mason-tool-installer.nvim' },
+	{
+		"tarides/ocaml.nvim",
+		config = function()
+			require("ocaml").setup()
+		end
+	}
 }

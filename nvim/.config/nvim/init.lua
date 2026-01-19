@@ -1,6 +1,7 @@
 vim.cmd([[set noswapfile]])
 vim.cmd([[hi @lsp.type.number gui=italic]])
 vim.opt.backup = false
+vim.opt.fillchars = { eob = " " }
 vim.opt.startofline = false
 vim.opt.splitbelow = true
 vim.opt.splitright = true
@@ -44,10 +45,10 @@ require("lazy").setup({
 	},
 	checker = { enabled = true },
 })
-vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
-vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
-vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
-vim.cmd("colorscheme kanso-zen")
+-- vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
+-- vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
+-- vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
+vim.cmd("colorscheme rose-pine")
 vim.cmd(":hi statusline guibg=NONE")
 require("multigrep").setup()
 require("nvim-highlight-colors").setup()
@@ -61,6 +62,60 @@ require("fidget").setup({
 require("keymaps")
 require("autocmd")
 require("layout")
+require("lualine").setup({
+	options = {
+		icons_enabled = true,
+		theme = 'auto',
+		component_separators = { left = '', right = '' },
+		section_separators = { left = '', right = '' },
+		disabled_filetypes = {
+			statusline = {},
+			winbar = {},
+		},
+		ignore_focus = {},
+		always_divide_middle = true,
+		always_show_tabline = true,
+		globalstatus = false,
+		refresh = {
+			statusline = 1000,
+			tabline = 1000,
+			winbar = 1000,
+			refresh_time = 16, -- ~60fps
+			events = {
+				'WinEnter',
+				'BufEnter',
+				'BufWritePost',
+				'SessionLoadPost',
+				'FileChangedShellPost',
+				'VimResized',
+				'Filetype',
+				'CursorMoved',
+				'CursorMovedI',
+				'ModeChanged',
+			},
+		}
+	},
+	sections = {
+		lualine_a = { 'mode' },
+		lualine_b = { 'branch', 'diff', 'diagnostics' },
+		lualine_c = { 'filename' },
+		lualine_x = { 'encoding', 'fileformat', 'filetype' },
+		lualine_y = { 'progress' },
+		lualine_z = { 'location' }
+	},
+	inactive_sections = {
+		lualine_a = {},
+		lualine_b = {},
+		lualine_c = { 'filename' },
+		lualine_x = { 'location' },
+		lualine_y = {},
+		lualine_z = {}
+	},
+	tabline = {},
+	winbar = {},
+	inactive_winbar = {},
+	extensions = {}
+})
 require("mason").setup()
 require("mini.surround").setup()
 require("mini.pairs").setup()
@@ -131,18 +186,23 @@ require("telescope").setup({
 	pickers = {
 		find_files = {
 			hidden = true,
+			theme = "ivy"
 		},
 		buffers = {
 			initial_mode = "normal",
+			theme = "ivy"
 		},
 		find_files = {
 			initial_mode = "normal",
+			theme = "ivy"
 		},
 		diagnostics = {
 			initial_mode = "normal",
+			theme = "ivy"
 		},
 		colorscheme = {
 			initial_mode = "normal",
+			theme = "ivy"
 		},
 	},
 })

@@ -5,6 +5,10 @@ return {
 		tag = "v0.2.0",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
+	{
+		'nvim-lualine/lualine.nvim',
+		dependencies = { 'nvim-tree/nvim-web-devicons' }
+	},
 	{ "nvim-mini/mini.pairs",              version = "*" },
 	{
 		"stevearc/oil.nvim",
