@@ -5,6 +5,7 @@ return {
 	opts = {
 		cmdline = {
 			keymap = { preset = "inherit" },
+			completion = { menu = { auto_show = true } },
 		},
 		-- My super-TAB configuration
 		keymap = {

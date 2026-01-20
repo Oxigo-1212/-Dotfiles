@@ -101,3 +101,18 @@ vim.keymap.set("n", "<leader>w", function()
 	vim.wo.linebreak = not is_wrap_enabled
 	vim.notify("Line wrap " .. (is_wrap_enabled and "Disabled" or "Enabled"))
 end, { desc = "Toggle line wrap" })
+
+-- 1. Initialize (Just type <leader>mi then your kernel name)
+vim.keymap.set("n", "<leader>mi", ":MoltenInit ", { desc = "Initialize Molten" })
+
+-- 2. Run Code (Works for a single line in Normal mode or a selection in Visual mode)
+vim.keymap.set("n", "<leader>mx", ":MoltenEvaluateLine<CR>", { desc = "Run line" })
+vim.keymap.set("v", "<leader>mx", ":<C-u>MoltenEvaluateVisual<CR>gv", { desc = "Run selection" })
+
+-- 3. Show/Enter Output (If you need to scroll through a table or error)
+vim.keymap.set("n", "<leader>mo", ":MoltenEnterOutput<CR>", { desc = "Show output" })
+
+-- 4. Delete/Clear (Get rid of the output when you're done)
+vim.keymap.set("n", "<leader>mc", ":MoltenDelete<CR>", { desc = "Clear output" })
+-- Interrupt the running kernel (Stop stuck code)
+vim.keymap.set("n", "<leader>ms", ":MoltenInterrupt<CR>", { desc = "Stop/Interrupt kernel", silent = true })
