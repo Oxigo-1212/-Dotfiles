@@ -18,6 +18,10 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.autochdir = true
 vim.opt.wrap = false
+vim.diagnostic.config({
+	virtual_text = true,
+	underline = true,
+})
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -48,7 +52,7 @@ require("lazy").setup({
 -- vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 -- vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 -- vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
-vim.cmd("colorscheme rose-pine")
+vim.cmd("colorscheme catppuccin-mocha")
 vim.cmd(":hi statusline guibg=NONE")
 require("multigrep").setup()
 require("nvim-highlight-colors").setup()
@@ -184,15 +188,12 @@ require("telescope").setup({
 		},
 	},
 	pickers = {
-		find_files = {
-			hidden = true,
-			theme = "ivy"
-		},
 		buffers = {
 			initial_mode = "normal",
 			theme = "ivy"
 		},
 		find_files = {
+			hidden = true,
 			initial_mode = "normal",
 			theme = "ivy"
 		},

@@ -5,7 +5,6 @@ return {
 	opts = {
 		cmdline = {
 			keymap = { preset = "inherit" },
-			completion = { menu = { auto_show = true } },
 		},
 		-- My super-TAB configuration
 		keymap = {
@@ -20,11 +19,19 @@ return {
 			["<C-up>"] = { "scroll_documentation_up", "fallback" },
 			["<C-down>"] = { "scroll_documentation_down", "fallback" },
 		},
+		signature = { enabled = true },
 		completion = {
-			documentation = { auto_show = false },
+			documentation = { auto_show = true },
 			ghost_text = { enabled = false },
-		},
+			menu = {
+				auto_show = true,
+				draw = {
+					treesitter = { "lsp" },
+					columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
+				}
+			}
 
+		},
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer", "copilot" },
 			providers = {

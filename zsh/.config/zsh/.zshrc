@@ -78,25 +78,25 @@ alias mln='cp -r ~/Documents/latex/LaTeX-Templates/"Lecture Notes"/Main.tex ~/Do
 alias mpn='cp -r ~/Documents/latex/LaTeX-Templates/Homework/HomeworkTemplate.tex -t .'
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
-# Define a function to wrap nvim
-# Wrapper function for nvim
- nvim() {
-    local prev_dir=$PWD
-    local tmp_file="$HOME/.nvim_last_dir_$$"
-
-    # Pass the current shell's PID to Neovim
-    NVIM_SHELL_PID=$$ command nvim "$@"
-
-    if [[ -f "$tmp_file" ]]; then
-        local new_dir=$(cat "$tmp_file")
-        if [[ -n "$new_dir" && "$new_dir" != "$prev_dir" ]]; then
-            cd "$new_dir"
-        fi
-        # Clean up the file so it doesn't linger
-        rm -f "$tmp_file"
-    fi
-}
-
+alias fv='nvim $(fzf -m --preview="bat --color=always {}")'
+# Define a function to wrap nvim Wrapper function for nvim
+#  nvim() {
+#     local prev_dir=$PWD
+#     local tmp_file="$HOME/.nvim_last_dir_$$"
+#
+#     # Pass the current shell's PID to Neovim
+#     NVIM_SHELL_PID=$$ command nvim "$@"
+#
+#     if [[ -f "$tmp_file" ]]; then
+#         local new_dir=$(cat "$tmp_file")
+#         if [[ -n "$new_dir" && "$new_dir" != "$prev_dir" ]]; then
+#             cd "$new_dir"
+#         fi
+#         # Clean up the file so it doesn't linger
+#         rm -f "$tmp_file"
+#     fi
+# }
+#
 . "$HOME/.local/bin/env"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
