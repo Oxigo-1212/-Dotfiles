@@ -6,7 +6,7 @@ return {
 			{
 				"3rd/image.nvim",
 				opts = {
-					backend = "ueberzug", -- WezTerm works best with ueberzugpp or its own integration
+					backend = "kitty", -- WezTerm works best with ueberzugpp or its own integration
 					-- Alternatively, try "kitty" as WezTerm supports a version of it,
 					-- but "ueberzug" is often more stable for Neovim images in WezTerm.
 					max_height_window_percentage = 50,

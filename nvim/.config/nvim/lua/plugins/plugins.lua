@@ -1,6 +1,10 @@
 return {
 	{ "brenoprata10/nvim-highlight-colors" },
 	{
+		'willothy/wezterm.nvim',
+		config = true
+	},
+	{
 		"nvim-telescope/telescope.nvim",
 		tag = "v0.2.0",
 		dependencies = { "nvim-lua/plenary.nvim" },

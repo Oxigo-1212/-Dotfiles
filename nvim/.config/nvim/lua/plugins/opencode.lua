@@ -10,6 +10,7 @@ return {
 			vim.g.opencode_opts = {
 				provider = {
 					enabled = "tmux",
+					cmd = "env TERM=xterm-256color opencode --port",
 					tmux = {},
 				},
 			}

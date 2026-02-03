@@ -29,6 +29,12 @@ vim.keymap.set("n", "<leader>bd", ":bdelete!<CR>", { desc = "Force delete buffer
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Open buffer navigation" })
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files in cwd" })
 vim.keymap.set("n", "<leader>fc", builtin.colorscheme, { desc = "Change colorscheme" })
+-- Bind <leader>fp to search your Neovim config files
+vim.keymap.set("n", "<leader>fC", function()
+	require("telescope.builtin").find_files({
+		cwd = vim.fn.stdpath("config")
+	})
+end, { desc = "Find Private Config Files" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "List open buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
 vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Find recently opened files" })
