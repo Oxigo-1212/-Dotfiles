@@ -1,0 +1,14 @@
+# Ghostty config - matching WezTerm settings
+
+# Font
+font-family = JetBrains Mono
+font-family = Noto Color Emoji
+font-size = 14
+
+# Theme
+theme = kanso-zen
+
+# Window
+window-decoration = false
+# background-opacity = 0.85
+gtk-tabs-location = hidden
