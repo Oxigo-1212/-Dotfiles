@@ -55,7 +55,7 @@ require("lazy").setup({
 -- vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 -- vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 -- vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
-vim.cmd("colorscheme catppuccin-mocha")
+vim.cmd("colorscheme rose-pine")
 vim.cmd(":hi statusline guibg=NONE")
 require("multigrep").setup()
 require("nvim-highlight-colors").setup()
