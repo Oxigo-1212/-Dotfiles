@@ -1,0 +1,154 @@
+* {
+    background-color: transparent;
+    color: #ffffff;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    font-family: 'JetBrainsMono Nerd Font', 'Ubuntu Mono', 'Cantarell', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+window#waybar {
+    background: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background: transparent;
+    padding: 0 4px;
+}
+
+#workspaces {
+    background: transparent;
+    padding: 0 4px;
+}
+
+#workspaces button {
+    all: initial;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin: 0 2px;
+    min-width: 14px;
+    font-size: 10px;
+    font-weight: 600;
+    transition: all 0.15s ease;
+}
+
+#workspaces button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+#workspaces button.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-weight: 500;
+}
+
+#workspaces button.empty {
+    opacity: 0.3;
+}
+
+#workspaces button.urgent {
+    background: rgba(255, 100, 50, 0.4);
+    color: #ff6432;
+}
+
+/* Center modules */
+#clock {
+    color: #ffffff;
+    font-weight: 500;
+    padding: 0 8px;
+}
+
+/* Right modules - system indicators */
+#bluetooth,
+#network,
+#pulseaudio,
+#cpu,
+#battery {
+    background: transparent;
+    color: #ffffff;
+    padding: 0 8px;
+    margin: 0;
+    transition: all 0.15s ease;
+}
+
+#bluetooth:hover,
+#network:hover,
+#pulseaudio:hover,
+#cpu:hover,
+#battery:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#pulseaudio.muted {
+    color: #ff6b6b;
+}
+
+#network.disconnected {
+    color: #ff6b6b;
+}
+
+#cpu {
+    font-weight: 500;
+}
+
+#battery.warning {
+    color: #ff9500;
+}
+
+#battery.critical {
+    color: #ff3b30;
+    animation: blink 1s linear infinite;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: #30d158;
+}
+
+@keyframes blink {
+    to {
+        opacity: 0.5;
+    }
+}
+
+/* Tray */
+#tray {
+    background: transparent;
+    padding: 0 4px;
+    margin: 0;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    color: #ff3b30;
+}
+
+/* Tooltips */
+tooltip {
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+tooltip label {
+    color: #ffffff;
+}
+
+/* Hidden elements */
+.hidden {
+    opacity: 0;
+}

@@ -10,7 +10,7 @@ return {
 		},
 		image = {
 			math = {
-				enabled = true,
+				enabled = false,
 				latex = {
 					font_size = "small",
 				}

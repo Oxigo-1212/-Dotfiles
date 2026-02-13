@@ -1,0 +1,174 @@
+{
+    // Waybar Configuration - Laptop Optimized
+    "reload_style_on_change": true,
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "spacing": 8,
+    "exclusive": true,
+    "fixed-center": true,
+
+    // Module layout: Ubuntu style - activities, workspaces, window title | center | system indicators
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "tray",
+        "pulseaudio",
+        "bluetooth",
+        "battery",
+        "custom/power"
+    ],
+
+    // Left modules configuration
+    "hyprland/workspaces": {
+        "format": "{id}",
+        "on-click": "activate",
+        "sort-by-number": true,
+        "all-outputs": false,
+        "disable-scroll": false,
+        "active-only": false,
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
+        },
+        "tooltip": true,
+        "tooltip-format": "Workspace {id}"
+    },
+
+    "hyprland/window": {
+        "format": "  {}",
+        "separate-outputs": true,
+        "rewrite": {
+            "(.{40}).*": "$1.."
+        },
+        "icon": true,
+        "icon-size": 16,
+        "tooltip": true,
+        "tooltip-format": "{title}"
+    },
+
+    // Center modules configuration
+    "clock": {
+        "format": "{:%a %b %d  %H:%M}",
+        "format-alt": "{:%A %B %d %Y  %H:%M:%S}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "months": "<span color='#e5c890'><b>{}</b></span>",
+                "days": "<span color='#a5adcb'><b>{}</b></span>",
+                "weeks": "<span color='#7dc4e4'><b>W{}</b></span>",
+                "weekdays": "<span color='#8bd5ca'><b>{}</b></span>",
+                "today": "<span color='#ed8796'><b><u>{}</u></b></span>"
+            }
+        },
+        "on-click-right": "mode"
+    },
+
+    // Right modules configuration
+    "pulseaudio": {
+        "format": "{icon}",
+        "format-bluetooth": "{icon}",
+        "format-bluetooth-muted": "󰂲",
+        "format-muted": "󰝟",
+        "format-source": "󰍬 {volume}%",
+        "format-source-muted": "󰍭",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "󰂑",
+            "headset": "󰂑",
+            "phone": "󰏲",
+            "portable": "󰏲",
+            "car": "󰄋",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "tooltip-format": "Volume: {volume}%\nDevice: {desc}",
+        "scroll-step": 5,
+        "on-click": "pavucontrol",
+        "on-click-middle": "pamixer -t",
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5",
+        "ignored-sinks": ["Easy Effects Sink"]
+    },
+
+    "bluetooth": {
+        "format": "{icon}",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "format-on": "󰂯",
+        "format-connected": "󰂱",
+        "format-connected-battery": "󰂱",
+        "format-icons": {
+            "enabled": "󰂯",
+            "disabled": "󰂲",
+            "connected": "󰂱"
+        },
+        "tooltip-format": "{controller_alias}\t{controller_address}\n{status}\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n{status}\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t({device_battery_percentage}%)",
+        "max-length": 30,
+        "on-click": "blueman-manager",
+        "on-click-middle": "bluetoothctl connect $(bluetoothctl devices | grep -o '[0-9A-F:]*' | head -1)",
+        "on-click-right": "bluetoothctl power toggle",
+        "on-scroll-up": "bluetoothctl connect $(bluetoothctl devices | grep -o '[0-9A-F:]*' | head -1)",
+        "on-scroll-down": "bluetoothctl disconnect"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}",
+        "format-charging": "󰂄",
+        "format-plugged": "󱐥",
+        "format-alt": "{capacity}%",
+        "format-full": "󰂅",
+        "format-icons": {
+            "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+            "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+        },
+        "tooltip-format": "Battery: {capacity}%\nTime: {time}\nPower: {power:0.1f}W",
+        "tooltip-format-charging": "Charging: {capacity}%\nTime until full: {time}\nPower: {power:0.1f}W",
+        "tooltip-format-discharging": "Discharging: {capacity}%\nTime remaining: {time}\nPower: {power:0.1f}W",
+        "interval": 5,
+        "on-click": "~/.config/scripts/power-profile-cycle.sh",
+        "on-click-right": "~/.config/scripts/power-menu.sh"
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8,
+        "tooltip": true,
+        "show-passive-items": true,
+        "reverse-direction": false
+    },
+
+    "custom/walker": {
+        "format": "󰍉",
+        "tooltip": true,
+        "tooltip-format": "Launch Walker",
+        "on-click": "~/.config/scripts/launch-walker.sh",
+        "min-length": 3,
+        "max-length": 3
+    },
+
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": true,
+        "tooltip-format": "Power Menu",
+        "on-click": "~/.config/scripts/power-menu.sh",
+        "min-length": 3,
+        "max-length": 3
+    }
+}

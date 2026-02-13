@@ -66,13 +66,13 @@ alias oxigo='tmux has-session -t Oxigo 2>/dev/null && tmux attach-session -t Oxi
 alias n='nvim'
 alias vim='nvim'
 alias z='zathura'
-alias opencode='opencode -c'
 
 bindkey -s '^[l' 'ls -a\n'
 
 alias rs='systemctl --user restart lid-monitor.service'
 alias mln='cp -r ~/Documents/latex/LaTeX-Templates/"Lecture Notes"/Main.tex ~/Documents/latex/LaTeX-Templates/"Lecture Notes"/Lectures -t .'
 alias mpn='cp -r ~/Documents/latex/LaTeX-Templates/Homework/HomeworkTemplate.tex -t .'
+alias todo='nvim ~/Documents/todo.md'
 # Define a function to wrap nvim
 # Wrapper function for nvim
  nvim() {

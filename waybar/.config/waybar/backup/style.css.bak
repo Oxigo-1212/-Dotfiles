@@ -1,0 +1,162 @@
+* {
+    background-color: transparent;
+    color: #ffffff;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    font-family: 'Ubuntu', 'Cantarell', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+window#waybar {
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffffff;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background: transparent;
+    padding: 0 4px;
+}
+
+/* Left modules - Activities and workspaces */
+#custom-arch {
+    font-size: 11px;
+    color: #ffffff;
+    padding: 0 12px;
+    margin: 0;
+    background: transparent;
+    font-weight: 600;
+}
+
+#custom-arch:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#workspaces {
+    background: transparent;
+    padding: 0 4px;
+}
+
+#workspaces button {
+    all: initial;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+    padding: 2px 10px;
+    margin: 0 2px;
+    min-width: 20px;
+    transition: all 0.15s ease;
+}
+
+#workspaces button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+#workspaces button.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-weight: 500;
+}
+
+#workspaces button.empty {
+    opacity: 0.3;
+}
+
+#workspaces button.urgent {
+    background: rgba(255, 100, 50, 0.4);
+    color: #ff6432;
+}
+
+#window {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    padding: 0 12px;
+    margin: 0;
+    background: transparent;
+}
+
+/* Center modules - clock */
+#clock {
+    color: #ffffff;
+    font-weight: 400;
+    padding: 0 8px;
+}
+
+/* Right modules - system indicators */
+#pulseaudio,
+#bluetooth,
+#battery,
+#tray,
+#custom-power {
+    background: transparent;
+    color: #ffffff;
+    padding: 0 8px;
+    margin: 0;
+    transition: all 0.15s ease;
+}
+
+#pulseaudio:hover,
+#bluetooth:hover,
+#battery:hover,
+#custom-power:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#pulseaudio.muted {
+    color: #ff3b30;
+}
+
+#battery.warning {
+    color: #ff9500;
+}
+
+#battery.critical {
+    color: #ff3b30;
+    animation: blink 1s linear infinite;
+}
+
+#battery.charging {
+    color: #30d158;
+}
+
+@keyframes blink {
+    to {
+        opacity: 0.5;
+    }
+}
+
+#tray {
+    background: transparent;
+    padding: 0 4px;
+    margin: 0;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    color: #ff3b30;
+}
+
+/* Tooltips */
+tooltip {
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+tooltip label {
+    color: #ffffff;
+}
+
+/* Hidden elements */
+.hidden {
+    opacity: 0;
+}
