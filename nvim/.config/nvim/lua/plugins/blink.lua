@@ -34,8 +34,14 @@ return {
 			}
 
 		},
-		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "copilot" },
+	sources = {
+		default = function()
+			local sources_list = { "lsp", "path", "snippets", "buffer" }
+			if vim.g.copilot_enabled ~= false then
+				table.insert(sources_list, "copilot")
+			end
+			return sources_list
+		end,
 			providers = {
 				lsp = {
 					score_offset = 1000,

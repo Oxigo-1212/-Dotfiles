@@ -120,3 +120,15 @@ vim.api.nvim_create_autocmd({ 'InsertLeavePre', 'TextChanged', 'TextChangedP' },
 		vim.cmd('silent! write')
 	end
 })
+
+-- Toggle Copilot completions (for blink.cmp)
+vim.g.copilot_enabled = true
+
+vim.api.nvim_create_user_command("CopilotToggle", function()
+	vim.g.copilot_enabled = not vim.g.copilot_enabled
+	local state = vim.g.copilot_enabled
+	vim.notify("Copilot " .. (state and "Enabled" or "Disabled"), vim.log.levels.INFO)
+end, {
+	desc = "Toggle GitHub Copilot completions in blink.cmp",
+	nargs = 0,
+})
