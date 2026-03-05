@@ -1,7 +1,7 @@
 # Ghostty config - matching WezTerm settings
 
 # Font
-font-family = JetBrains Mono
+font-family = Lilex Nerd Font Mono
 font-family = Noto Color Emoji
 font-size = 14
 

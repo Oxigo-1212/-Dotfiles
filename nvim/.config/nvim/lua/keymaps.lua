@@ -122,3 +122,6 @@ vim.keymap.set("n", "<leader>mo", ":MoltenEnterOutput<CR>", { desc = "Show outpu
 vim.keymap.set("n", "<leader>mc", ":MoltenDelete<CR>", { desc = "Clear output" })
 -- Interrupt the running kernel (Stop stuck code)
 vim.keymap.set("n", "<leader>ms", ":MoltenInterrupt<CR>", { desc = "Stop/Interrupt kernel", silent = true })
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })

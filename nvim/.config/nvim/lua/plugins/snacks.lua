@@ -9,6 +9,11 @@ return {
 			},
 		},
 		image = {
+			doc = {
+				inline = false,
+				max_width = 200,
+				max_height = 100,
+			},
 			math = {
 				enabled = false,
 				latex = {

@@ -24,6 +24,7 @@ return {
 						},
 					},
 				},
+				tsserver = { enabled = true },
 				zls = { enabled = true }
 			}
 		},

@@ -59,7 +59,7 @@ require("lazy").setup({
 vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
-vim.cmd("colorscheme rose-pine")
+vim.cmd("colorscheme kanso-zen")
 vim.cmd(":hi statusline guibg=NONE")
 require("multigrep").setup()
 require("nvim-highlight-colors").setup()
@@ -218,34 +218,34 @@ require("telescope").load_extension("fidget")
 require("luasnip").config.setup({
 	enable_autosnippets = true,
 })
-require('jupytext').setup({
-	style = "markdown",
-	output_extension = "md",
-	force_ft = "markdown",
-	-- Ensure Neovim uses the jupytext installed in your pyvenv
-	binary = vim.fn.expand("~/.config/nvim/pyvenv/bin/jupytext"),
-})
--- Force jupytext to handle the file before other plugins intervene
-vim.g.jupytext_filetype_map = { ipynb = "markdown" }
--- Disable common plugins that trigger "Binder" popups
-vim.g.loaded_jupyter_nvim = 1
-vim.g.loaded_jupyter_nvim = 1
-vim.g.loaded_notebook_nvim = 1
-vim.g.loaded_remote_notebook = 1 -- This specifically targets 'Binder' style popups
--- I find auto open annoying, keep in mind setting this option will require setting
--- a keybind for `:noautocmd MoltenEnterOutput` to open the output again
-vim.g.molten_auto_open_output = false
-
+-- require('jupytext').setup({
+-- 	style = "markdown",
+-- 	output_extension = "md",
+-- 	force_ft = "markdown",
+-- 	-- Ensure Neovim uses the jupytext installed in your pyvenv
+-- 	binary = vim.fn.expand("~/.config/nvim/pyvenv/bin/jupytext"),
+-- })
+-- -- Force jupytext to handle the file before other plugins intervene
+-- vim.g.jupytext_filetype_map = { ipynb = "markdown" }
+-- -- Disable common plugins that trigger "Binder" popups
+-- vim.g.loaded_jupyter_nvim = 1
+-- vim.g.loaded_jupyter_nvim = 1
+-- vim.g.loaded_notebook_nvim = 1
+-- vim.g.loaded_remote_notebook = 1 -- This specifically targets 'Binder' style popups
+-- -- I find auto open annoying, keep in mind setting this option will require setting
+-- -- a keybind for `:noautocmd MoltenEnterOutput` to open the output again
+-- vim.g.molten_auto_open_output = false
+--
 -- this guide will be using image.nvim
 -- Don't forget to setup and install the plugin if you want to view image outputs
-vim.g.molten_image_provider = "image.nvim"
-
--- optional, I like wrapping. works for virt text and the output window
-vim.g.molten_wrap_output = true
-
--- Output as virtual text. Allows outputs to always be shown, works with images, but can
--- be buggy with longer images
-vim.g.molten_virt_text_output = true
-
--- this will make it so the output shows up below the \`\`\` cell delimiter
-vim.g.molten_virt_lines_off_by_1 = true
+-- vim.g.molten_image_provider = "image.nvim"
+--
+-- -- optional, I like wrapping. works for virt text and the output window
+-- vim.g.molten_wrap_output = true
+--
+-- -- Output as virtual text. Allows outputs to always be shown, works with images, but can
+-- -- be buggy with longer images
+-- vim.g.molten_virt_text_output = true
+--
+-- -- this will make it so the output shows up below the \`\`\` cell delimiter
+-- vim.g.molten_virt_lines_off_by_1 = true
