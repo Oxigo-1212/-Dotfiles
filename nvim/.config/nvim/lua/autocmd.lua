@@ -132,3 +132,13 @@ end, {
 	desc = "Toggle GitHub Copilot completions in blink.cmp",
 	nargs = 0,
 })
+
+-- Add this to your init.lua or a new file in plugin/
+vim.api.nvim_create_autocmd({ "InsertLeave", "BufLeave" }, {
+	callback = function()
+		local loaded, blink = pcall(require, "blink.cmp")
+		if loaded then
+			blink.hide()
+		end
+	end,
+})

@@ -24,6 +24,7 @@ return {
 						},
 					},
 				},
+				pylsp = { enabled = true },
 				tsserver = { enabled = true },
 				zls = { enabled = true }
 			}

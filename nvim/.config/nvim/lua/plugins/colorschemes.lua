@@ -1,11 +1,20 @@
+function ColorMyPencils(color)
+	color = color or "rose-pine-moon"
+	vim.cmd.colorscheme(color)
+
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end
+
 return {
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
 		config = function()
 			require("rose-pine").setup({
-				styles = {
-					transparency = true,
+				disable_background = true,
+				style = {
+					italic = false,
 				},
 			})
 		end,
@@ -71,10 +80,41 @@ return {
 	},
 	{
 		"vague-theme/vague.nvim",
-		lazy = false, -- make sure we load this during startup if it is your main colorscheme
+		lazy = false,  -- make sure we load this during startup if it is your main colorscheme
 		priority = 1000, -- make sure to load this before all the other plugins
 		opts = {
 			transparent = true,
 		},
 	},
+	{
+		"danfry1/lume",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("lume").setup({
+				transparent = true
+			})
+		end,
+	},
+	{
+		"shatur/neovim-ayu",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("ayu").setup({
+				mirage = true,
+				overrides = {
+					Normal = { bg = "None" },
+					NormalFloat = { bg = "none" },
+					ColorColumn = { bg = "None" },
+					SignColumn = { bg = "None" },
+					Folded = { bg = "None" },
+					FoldColumn = { bg = "None" },
+					CursorLine = { bg = "None" },
+					CursorColumn = { bg = "None" },
+					VertSplit = { bg = "None" },
+				},
+			})
+		end,
+	}
 }

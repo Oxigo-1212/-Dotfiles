@@ -1,6 +1,5 @@
 vim.cmd([[set noswapfile]])
 vim.cmd([[hi @lsp.type.number gui=italic]])
-vim.opt.showtabline = 2
 vim.opt.backup = false
 vim.opt.fillchars = { eob = " " }
 vim.opt.startofline = false
@@ -40,6 +39,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 		os.exit(1)
 	end
 end
+
 vim.opt.rtp:prepend(lazypath)
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
@@ -56,11 +56,20 @@ require("lazy").setup({
 		notify = false,
 	},
 })
+
+function ColorMyPencils(color)
+	color = color or "rose-pine-moon"
+	vim.cmd.colorscheme(color)
+
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end
+
 vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
-vim.cmd("colorscheme kanso-zen")
 vim.cmd(":hi statusline guibg=NONE")
+ColorMyPencils()
 require("multigrep").setup()
 require("nvim-highlight-colors").setup()
 require("fidget").setup({

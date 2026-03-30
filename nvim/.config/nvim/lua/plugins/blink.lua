@@ -22,6 +22,12 @@ return {
 		},
 		signature = { enabled = true, window = { border = "none" } },
 		completion = {
+			list = {
+				selection = {
+					preselect = false,
+					auto_insert = true,
+				}
+			},
 			documentation = { auto_show = true, window = { border = "none" } },
 			ghost_text = { enabled = false },
 			menu = {
@@ -34,14 +40,14 @@ return {
 			}
 
 		},
-	sources = {
-		default = function()
-			local sources_list = { "lsp", "path", "snippets", "buffer" }
-			if vim.g.copilot_enabled ~= false then
-				table.insert(sources_list, "copilot")
-			end
-			return sources_list
-		end,
+		sources = {
+			default = function()
+				local sources_list = { "lsp", "path", "snippets", "buffer" }
+				if vim.g.copilot_enabled ~= false then
+					table.insert(sources_list, "copilot")
+				end
+				return sources_list
+			end,
 			providers = {
 				lsp = {
 					score_offset = 1000,
