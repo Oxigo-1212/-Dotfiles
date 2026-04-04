@@ -29,9 +29,17 @@ vim.keymap.set("n", "<leader>bd", ":bdelete!<CR>", { desc = "Force delete buffer
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Open buffer navigation" })
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files in cwd" })
 vim.keymap.set("n", "<leader>fc", builtin.colorscheme, { desc = "Change colorscheme" })
+-- Bind <leader>fp to search your Neovim config files
+vim.keymap.set("n", "<leader>fC", function()
+	require("telescope.builtin").find_files({
+		cwd = vim.fn.stdpath("config")
+	})
+end, { desc = "Find Private Config Files" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "List open buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
 vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Find recently opened files" })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "u", require("undotree").open, { desc = "Go to definition" })
 
 -- Minor remap from ThePrimeagen
 
@@ -101,3 +109,32 @@ vim.keymap.set("n", "<leader>w", function()
 	vim.wo.linebreak = not is_wrap_enabled
 	vim.notify("Line wrap " .. (is_wrap_enabled and "Disabled" or "Enabled"))
 end, { desc = "Toggle line wrap" })
+
+-- 1. Initialize (Just type <leader>mi then your kernel name)
+vim.keymap.set("n", "<leader>mi", ":MoltenInit ", { desc = "Initialize Molten" })
+
+-- 2. Run Code (Works for a single line in Normal mode or a selection in Visual mode)
+vim.keymap.set("n", "<leader>mx", ":MoltenEvaluateLine<CR>", { desc = "Run line" })
+vim.keymap.set("v", "<leader>mx", ":<C-u>MoltenEvaluateVisual<CR>gv", { desc = "Run selection" })
+
+-- 3. Show/Enter Output (If you need to scroll through a table or error)
+vim.keymap.set("n", "<leader>mo", ":MoltenEnterOutput<CR>", { desc = "Show output" })
+
+-- 4. Delete/Clear (Get rid of the output when you're done)
+vim.keymap.set("n", "<leader>mc", ":MoltenDelete<CR>", { desc = "Clear output" })
+-- Interrupt the running kernel (Stop stuck code)
+vim.keymap.set("n", "<leader>ms", ":MoltenInterrupt<CR>", { desc = "Stop/Interrupt kernel", silent = true })
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+vim.keymap.set("n", "<leader>ip", function()
+	local venv = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX")
+	if venv ~= nil then
+		-- in the form of /home/benlubas/.virtualenvs/VENV_NAME
+		venv = string.match(venv, "/.+/(.+)")
+		vim.cmd(("MoltenInit %s"):format(venv))
+	else
+		vim.cmd("MoltenInit python3")
+	end
+end, { desc = "Initialize Molten for python3", silent = true })

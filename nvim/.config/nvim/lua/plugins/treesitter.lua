@@ -8,6 +8,7 @@ return {
 		config = function()
 			-- Install parsers (runs asynchronously, no-op if already installed)
 			require("nvim-treesitter").install({
+				"typescript",
 				"lua",
 				"vim",
 				"vimdoc",

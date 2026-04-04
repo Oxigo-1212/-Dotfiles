@@ -16,8 +16,11 @@ vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.autochdir = true
+vim.opt.autochdir = false
 vim.opt.wrap = false
+vim.g.loaded_python3_provider = nil
+vim.g.python3_host_prog = vim.fn.expand('~/.config/nvim/pyvenv/bin/python3')
+vim.g.vimtex_quickfix_enabled = 0
 vim.diagnostic.config({
 	virtual_text = true,
 	underline = true,
@@ -36,6 +39,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 		os.exit(1)
 	end
 end
+
 vim.opt.rtp:prepend(lazypath)
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
@@ -47,13 +51,26 @@ require("lazy").setup({
 	spec = {
 		{ import = "plugins" },
 	},
-	checker = { enabled = true },
+	checker = {
+		enabled = true,
+		notify = false,
+	},
 })
--- vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
--- vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
--- vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
-vim.cmd("colorscheme catppuccin-mocha")
+
+function ColorMyPencils(color)
+	color = color or "rose-pine-moon"
+	vim.cmd.colorscheme(color)
+
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end
+
+vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
+vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
+vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
 vim.cmd(":hi statusline guibg=NONE")
+ColorMyPencils("rose-pine")
+vim.cmd.packadd("nvim.undotree")
 require("multigrep").setup()
 require("nvim-highlight-colors").setup()
 require("fidget").setup({
@@ -66,60 +83,60 @@ require("fidget").setup({
 require("keymaps")
 require("autocmd")
 require("layout")
-require("lualine").setup({
-	options = {
-		icons_enabled = true,
-		theme = 'auto',
-		component_separators = { left = '', right = '' },
-		section_separators = { left = '', right = '' },
-		disabled_filetypes = {
-			statusline = {},
-			winbar = {},
-		},
-		ignore_focus = {},
-		always_divide_middle = true,
-		always_show_tabline = true,
-		globalstatus = false,
-		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
-			refresh_time = 16, -- ~60fps
-			events = {
-				'WinEnter',
-				'BufEnter',
-				'BufWritePost',
-				'SessionLoadPost',
-				'FileChangedShellPost',
-				'VimResized',
-				'Filetype',
-				'CursorMoved',
-				'CursorMovedI',
-				'ModeChanged',
-			},
-		}
-	},
-	sections = {
-		lualine_a = { 'mode' },
-		lualine_b = { 'branch', 'diff', 'diagnostics' },
-		lualine_c = { 'filename' },
-		lualine_x = { 'encoding', 'fileformat', 'filetype' },
-		lualine_y = { 'progress' },
-		lualine_z = { 'location' }
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { 'filename' },
-		lualine_x = { 'location' },
-		lualine_y = {},
-		lualine_z = {}
-	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = {}
-})
+-- require("lualine").setup({
+-- 	options = {
+-- 		icons_enabled = true,
+-- 		theme = 'auto',
+-- 		component_separators = { left = '', right = '' },
+-- 		section_separators = { left = '', right = '' },
+-- 		disabled_filetypes = {
+-- 			statusline = {},
+-- 			winbar = {},
+-- 		},
+-- 		ignore_focus = {},
+-- 		always_divide_middle = true,
+-- 		always_show_tabline = true,
+-- 		globalstatus = false,
+-- 		refresh = {
+-- 			statusline = 1000,
+-- 			tabline = 1000,
+-- 			winbar = 1000,
+-- 			refresh_time = 16, -- ~60fps
+-- 			events = {
+-- 				'WinEnter',
+-- 				'BufEnter',
+-- 				'BufWritePost',
+-- 				'SessionLoadPost',
+-- 				'FileChangedShellPost',
+-- 				'VimResized',
+-- 				'Filetype',
+-- 				'CursorMoved',
+-- 				'CursorMovedI',
+-- 				'ModeChanged',
+-- 			},
+-- 		}
+-- 	},
+-- 	sections = {
+-- 		lualine_a = { 'mode' },
+-- 		lualine_b = { 'branch', 'diff', 'diagnostics' },
+-- 		lualine_c = { 'filename' },
+-- 		lualine_x = { 'encoding', 'fileformat', 'filetype' },
+-- 		lualine_y = { 'progress' },
+-- 		lualine_z = { 'location' }
+-- 	},
+-- 	inactive_sections = {
+-- 		lualine_a = {},
+-- 		lualine_b = {},
+-- 		lualine_c = { 'filename' },
+-- 		lualine_x = { 'location' },
+-- 		lualine_y = {},
+-- 		lualine_z = {}
+-- 	},
+-- 	tabline = {},
+-- 	winbar = {},
+-- 	inactive_winbar = {},
+-- 	extensions = {}
+-- })
 require("mason").setup()
 require("mini.surround").setup()
 require("mini.pairs").setup()
@@ -190,20 +207,16 @@ require("telescope").setup({
 	pickers = {
 		buffers = {
 			initial_mode = "normal",
-			theme = "ivy"
 		},
 		find_files = {
 			hidden = true,
 			initial_mode = "normal",
-			theme = "ivy"
 		},
 		diagnostics = {
 			initial_mode = "normal",
-			theme = "ivy"
 		},
 		colorscheme = {
 			initial_mode = "normal",
-			theme = "ivy"
 		},
 	},
 })
@@ -215,3 +228,34 @@ require("telescope").load_extension("fidget")
 require("luasnip").config.setup({
 	enable_autosnippets = true,
 })
+-- require('jupytext').setup({
+-- 	style = "markdown",
+-- 	output_extension = "md",
+-- 	force_ft = "markdown",
+-- 	-- Ensure Neovim uses the jupytext installed in your pyvenv
+-- 	binary = vim.fn.expand("~/.config/nvim/pyvenv/bin/jupytext"),
+-- })
+-- -- Force jupytext to handle the file before other plugins intervene
+-- vim.g.jupytext_filetype_map = { ipynb = "markdown" }
+-- -- Disable common plugins that trigger "Binder" popups
+-- vim.g.loaded_jupyter_nvim = 1
+-- vim.g.loaded_jupyter_nvim = 1
+-- vim.g.loaded_notebook_nvim = 1
+-- vim.g.loaded_remote_notebook = 1 -- This specifically targets 'Binder' style popups
+-- -- I find auto open annoying, keep in mind setting this option will require setting
+-- -- a keybind for `:noautocmd MoltenEnterOutput` to open the output again
+-- vim.g.molten_auto_open_output = false
+--
+-- this guide will be using image.nvim
+-- Don't forget to setup and install the plugin if you want to view image outputs
+-- vim.g.molten_image_provider = "image.nvim"
+--
+-- -- optional, I like wrapping. works for virt text and the output window
+-- vim.g.molten_wrap_output = true
+--
+-- -- Output as virtual text. Allows outputs to always be shown, works with images, but can
+-- -- be buggy with longer images
+-- vim.g.molten_virt_text_output = true
+--
+-- -- this will make it so the output shows up below the \`\`\` cell delimiter
+-- vim.g.molten_virt_lines_off_by_1 = true

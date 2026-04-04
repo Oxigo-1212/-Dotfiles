@@ -29,3 +29,4 @@ export PYTHONSTARTUP="$HOME/python/pythonrc"
 # Zsh
 export ZDOTDIR=$HOME/.config/zsh
 export PATH="$HOME/develop/flutter/bin:$PATH"
+. "/home/oxigo/.local/share/cargo/env"

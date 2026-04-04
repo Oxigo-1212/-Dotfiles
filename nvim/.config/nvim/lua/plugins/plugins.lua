@@ -1,5 +1,5 @@
 return {
-	{ "brenoprata10/nvim-highlight-colors" },
+	{ 'brenoprata10/nvim-highlight-colors' },
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "v0.2.0",
@@ -51,7 +51,7 @@ return {
 			vim.g.vimtex_compiler_latexmk_engines = {
 				_ = "-xelatex",
 			}
-			vim.g.vimtex_view_method = "zathura"
+			vim.g.vimtex_view_method = "sioyek"
 		end,
 	},
 	{ "nvim-mini/mini.surround", version = "*" },
@@ -59,5 +59,14 @@ return {
 		"j-hui/fidget.nvim",
 	},
 	{ 'akinsho/toggleterm.nvim', version = "*", config = true },
-	{ "romainl/vim-cool" }
+	{ "romainl/vim-cool" },
+	{
+		'MeanderingProgrammer/render-markdown.nvim',
+		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suite
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+		---@module 'render-markdown'
+		---@type render.md.UserConfig
+		opts = {},
+	},
 }

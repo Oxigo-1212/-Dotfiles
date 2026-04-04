@@ -23,7 +23,10 @@ return {
 							},
 						},
 					},
-				}
+				},
+				basedpyright = { enabled = true },
+				tsserver = { enabled = true },
+				zls = { enabled = true }
 			}
 		},
 		config = function(_, opts)

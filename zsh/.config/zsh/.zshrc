@@ -1,10 +1,8 @@
-# Zsh history
-export HISTFILE="$XDG_STATE_HOME/zsh/history"
-export NVM_DIR="$XDG_DATA_HOME/nvm"
+export NVM_DIR="$HOME/.nvm"
 source /usr/share/nvm/nvm.sh
 source /usr/share/nvm/bash_completion
 source /usr/share/nvm/install-nvm-exec
-export ZSH="$XDG_DATA_HOME/oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export ELECTRON_OZONE_PLATFORM_HINT=wayland
 export ELECTRON_ENABLE_WAYLAND_DMD=1
 export EDITOR=nvim
@@ -21,7 +19,6 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/scripts/changecwd.sh
-compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 # Initialize fzf
 eval "$(fzf --zsh)"
@@ -47,9 +44,9 @@ show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head
 
 # ------------FZF--------------
 # Set up fzf key bindings and fuzzy completion
-export FZF_DEFAULT_COMMAND="fd . $HOME --exclude '.{cache,gem,git,npm,parallel,Trash}' --exclude '{Library,Music,node_modules,Pictures}/' --hidden --exclude .git "
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git "
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd  --hidden --strip-cwd-prefix --exclude .git"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 
 export FZF_DEFAULT_OPTS="--height 50% --layout=default --border --color=hl:#2dd4bf"
 
@@ -67,38 +64,31 @@ alias rm='trash-put'
 
 alias oxigo='tmux has-session -t Oxigo 2>/dev/null && tmux attach-session -t Oxigo || tmux new-session -s Oxigo'
 alias n='nvim'
-alias z='zathura'
-alias opencode='opencode -c'
 alias vim='nvim'
-alias vi='nvim'
+alias z='zathura'
+
 bindkey -s '^[l' 'ls -a\n'
 
 alias rs='systemctl --user restart lid-monitor.service'
 alias mln='cp -r ~/Documents/latex/LaTeX-Templates/"Lecture Notes"/Main.tex ~/Documents/latex/LaTeX-Templates/"Lecture Notes"/Lectures -t .'
 alias mpn='cp -r ~/Documents/latex/LaTeX-Templates/Homework/HomeworkTemplate.tex -t .'
-alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
-alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
-alias fv='nvim $(fzf -m --preview="bat --color=always {}")'
-# Define a function to wrap nvim Wrapper function for nvim
-#  nvim() {
-#     local prev_dir=$PWD
-#     local tmp_file="$HOME/.nvim_last_dir_$$"
-#
-#     # Pass the current shell's PID to Neovim
-#     NVIM_SHELL_PID=$$ command nvim "$@"
-#
-#     if [[ -f "$tmp_file" ]]; then
-#         local new_dir=$(cat "$tmp_file")
-#         if [[ -n "$new_dir" && "$new_dir" != "$prev_dir" ]]; then
-#             cd "$new_dir"
-#         fi
-#         # Clean up the file so it doesn't linger
-#         rm -f "$tmp_file"
-#     fi
-# }
-#
-. "$HOME/.local/bin/env"
+alias todo='nvim ~/Documents/todo.md'
+# Define a function to wrap nvim
+# Wrapper function for nvim
+ nvim() {
+    local prev_dir=$PWD
+    local tmp_file="$HOME/.nvim_last_dir_$$"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+    # Pass the current shell's PID to Neovim
+    NVIM_SHELL_PID=$$ command nvim "$@"
+
+    if [[ -f "$tmp_file" ]]; then
+        local new_dir=$(cat "$tmp_file")
+        if [[ -n "$new_dir" && "$new_dir" != "$prev_dir" ]]; then
+            cd "$new_dir"
+        fi
+        # Clean up the file so it doesn't linger
+        rm -f "$tmp_file"
+    fi
+}
+. "$HOME/.local/bin/env"

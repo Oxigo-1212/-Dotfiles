@@ -5,10 +5,11 @@ return {
 	opts = {
 		cmdline = {
 			keymap = { preset = "inherit" },
+			completion = { menu = { auto_show = true } },
 		},
 		-- My super-TAB configuration
 		keymap = {
-			["<C-Space"] = { "show", "show_documentation", "hide_documentation" },
+			["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
 			["<C-e>"] = { "hide", "fallback" },
 			["<Tab>"] = { "accept", "fallback" },
 
@@ -19,12 +20,19 @@ return {
 			["<C-up>"] = { "scroll_documentation_up", "fallback" },
 			["<C-down>"] = { "scroll_documentation_down", "fallback" },
 		},
-		signature = { enabled = true },
+		signature = { enabled = true, window = { border = "none" } },
 		completion = {
-			documentation = { auto_show = true },
+			list = {
+				selection = {
+					preselect = false,
+					auto_insert = true,
+				}
+			},
+			documentation = { auto_show = true, window = { border = "none" } },
 			ghost_text = { enabled = false },
 			menu = {
 				auto_show = true,
+				border = "none",
 				draw = {
 					treesitter = { "lsp" },
 					columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
@@ -33,12 +41,21 @@ return {
 
 		},
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "copilot" },
+			default = function()
+				local sources_list = { "lsp", "path", "snippets", "buffer" }
+				if vim.g.copilot_enabled ~= false then
+					table.insert(sources_list, "copilot")
+				end
+				return sources_list
+			end,
 			providers = {
+				lsp = {
+					score_offset = 1000,
+				},
 				copilot = {
 					name = "copilot",
 					module = "blink-copilot",
-					score_offset = 100,
+					score_offset = -100,
 					async = true,
 				},
 			},

@@ -8,33 +8,26 @@ return {
 		},
 		config = function()
 			vim.g.opencode_opts = {
-				provider = {
-					enabled = "tmux",
-					tmux = {},
-				},
 			}
 			-- Required for `opts.events.reload`.
 			vim.o.autoread = true
 
 			-- OpenCode keybindings with <leader>o prefix
-			vim.keymap.set({ "n", "x" }, "<leader>oa", function()
-				require("opencode").ask("@this: ", { submit = true })
-			end, { desc = "OpenCode: Ask" })
-			vim.keymap.set({ "n", "x" }, "<leader>ox", function()
-				require("opencode").select()
-			end, { desc = "OpenCode: Execute action" })
-			vim.keymap.set({ "n", "x" }, "<leader>og", function()
-				require("opencode").prompt("@this")
-			end, { desc = "OpenCode: Add to prompt" })
-			vim.keymap.set({ "n", "t" }, "<leader>ot", function()
-				require("opencode").toggle()
-			end, { desc = "OpenCode: Toggle panel" })
-			vim.keymap.set("n", "<leader>ou", function()
-				require("opencode").command("session.half.page.up")
-			end, { desc = "OpenCode: Scroll up" })
-			vim.keymap.set("n", "<leader>od", function()
-				require("opencode").command("session.half.page.down")
-			end, { desc = "OpenCode: Scroll down" })
+			vim.keymap.set({ "n", "x" }, "<leader>oa", function() require("opencode").ask("@this: ", { submit = true }) end,
+				{ desc = "Ask opencode…" })
+			vim.keymap.set({ "n", "x" }, "<leader>ox", function() require("opencode").select() end,
+				{ desc = "Execute opencode action…" })
+			vim.keymap.set({ "n", "t" }, "<leader>ot", function() require("opencode").toggle() end,
+				{ desc = "Toggle opencode" })
+			vim.keymap.set({ "n", "x" }, "go", function() return require("opencode").operator("@this ") end,
+				{ desc = "Add range to opencode", expr = true })
+			vim.keymap.set("n", "goo", function() return require("opencode").operator("@this ") .. "_" end,
+				{ desc = "Add line to opencode", expr = true })
+
+			vim.keymap.set("n", "<leader>ou", function() require("opencode").command("session.half.page.up") end,
+				{ desc = "Scroll opencode up" })
+			vim.keymap.set("n", "<leader>od", function() require("opencode").command("session.half.page.down") end,
+				{ desc = "Scroll opencode down" })
 		end,
 	},
 	{
