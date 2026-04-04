@@ -1,5 +1,5 @@
 return {
-	{ "brenoprata10/nvim-highlight-colors" },
+	{ 'brenoprata10/nvim-highlight-colors' },
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "v0.2.0",
@@ -68,5 +68,5 @@ return {
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
 		opts = {},
-	}
+	},
 }

@@ -16,7 +16,7 @@ vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.autochdir = true
+vim.opt.autochdir = false
 vim.opt.wrap = false
 vim.g.loaded_python3_provider = nil
 vim.g.python3_host_prog = vim.fn.expand('~/.config/nvim/pyvenv/bin/python3')
@@ -69,7 +69,8 @@ vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
 vim.cmd(":hi statusline guibg=NONE")
-ColorMyPencils()
+ColorMyPencils("rose-pine")
+vim.cmd.packadd("nvim.undotree")
 require("multigrep").setup()
 require("nvim-highlight-colors").setup()
 require("fidget").setup({
