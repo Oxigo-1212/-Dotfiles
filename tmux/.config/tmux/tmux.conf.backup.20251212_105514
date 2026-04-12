@@ -33,6 +33,8 @@ bind -n M-H previous-window
 bind -n M-L next-window
 bind p display-popup -E -w 80% -h 60% "~/.config/scripts/tmux-pdf-search.sh"
 
+set -g allow-passthrough=on
+
 # List of plugins
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'christoomey/vim-tmux-navigator'

@@ -8,26 +8,49 @@ return {
 		},
 		config = function()
 			vim.g.opencode_opts = {
+				provider = {
+					enabled = "tmux",
+					cmd = "env TERM=xterm-256color opencode --port",
+					tmux = {},
+				},
+				lsp = {
+					enable = true,  -- Keep this true for your FAISS docs
+					hover = true,   -- Enables the 'K' to explain symbols
+					code_actions = true, -- Enables the 'fix' suggestions
+				},
+				-- Disable the UI-blocking confirmation prompts
+				ask_permission = false,
+				-- Ensure it stays out of the way of the LSP save cycle
+				event_hooks = {
+					on_save = false,
+				},
 			}
 			-- Required for `opts.events.reload`.
 			vim.o.autoread = true
 
 			-- OpenCode keybindings with <leader>o prefix
-			vim.keymap.set({ "n", "x" }, "<leader>oa", function() require("opencode").ask("@this: ", { submit = true }) end,
-				{ desc = "Ask opencode…" })
-			vim.keymap.set({ "n", "x" }, "<leader>ox", function() require("opencode").select() end,
-				{ desc = "Execute opencode action…" })
-			vim.keymap.set({ "n", "t" }, "<leader>ot", function() require("opencode").toggle() end,
-				{ desc = "Toggle opencode" })
-			vim.keymap.set({ "n", "x" }, "go", function() return require("opencode").operator("@this ") end,
-				{ desc = "Add range to opencode", expr = true })
-			vim.keymap.set("n", "goo", function() return require("opencode").operator("@this ") .. "_" end,
-				{ desc = "Add line to opencode", expr = true })
+			vim.keymap.set({ "n", "x" }, "<leader>oa", function()
+				require("opencode").ask("@this: ", { submit = true })
+			end, { desc = "Ask opencode…" })
+			vim.keymap.set({ "n", "x" }, "<leader>ox", function()
+				require("opencode").select()
+			end, { desc = "Execute opencode action…" })
+			vim.keymap.set({ "n", "t" }, "<leader>ot", function()
+				require("opencode").toggle()
+			end, { desc = "Toggle opencode" })
+			vim.keymap.set({ "n", "x" }, "go", function()
+				return require("opencode").operator("@this ")
+			end, { desc = "Add range to opencode", expr = true })
+			vim.keymap.set("n", "goo", function()
+				return require("opencode").operator("@this ") .. "_"
+			end, { desc = "Add line to opencode", expr = true })
 
-			vim.keymap.set("n", "<leader>ou", function() require("opencode").command("session.half.page.up") end,
-				{ desc = "Scroll opencode up" })
-			vim.keymap.set("n", "<leader>od", function() require("opencode").command("session.half.page.down") end,
-				{ desc = "Scroll opencode down" })
+			vim.keymap.set("n", "<S-C-u>", function()
+				require("opencode").command("session.half.page.up")
+			end, { desc = "Scroll opencode up" })
+			vim.keymap.set("n", "<S-C-d>", function()
+				require("opencode").command("session.half.page.down")
+			end, { desc = "Scroll opencode down" })
 		end,
 	},
 	{

@@ -1,0 +1,48 @@
+
+2026-04-06 09:04:20 ═══ Dwight started ═══════════════════════════════════
+[09:04:20] Working directory: /home/oxigo/public-dotfiles/nvim/.config/nvim
+[09:04:23] [dwight] MCP server 'playwright' exited (code 1) [WARN]
+[09:04:23] [dwight] MCP server 'astro-docs' exited (code 1) [WARN]
+[09:04:23] [dwight] MCP server 'websearch' exited (code 1) [WARN]
+
+2026-04-06 09:04:40 ═══ Dwight started ═══════════════════════════════════
+[09:04:40] Working directory: /home/oxigo/public-dotfiles/nvim/.config/nvim
+[09:04:48] [dwight] MCP server 'websearch' exited (code 1) [WARN]
+[09:04:48] [dwight] MCP server 'astro-docs' exited (code 1) [WARN]
+[09:04:48] [dwight] MCP server 'playwright' exited (code 1) [WARN]
+[09:04:48] Session ended
+[09:05:24] Session ended
+
+2026-04-06 09:05:26 ═══ Dwight started ═══════════════════════════════════
+[09:05:26] Working directory: /home/oxigo/public-dotfiles/nvim/.config/nvim
+[09:05:26] [dwight] MCP server 'astro-docs' exited (code 1) [WARN]
+[09:05:26] [dwight] MCP server 'playwright' exited (code 1) [WARN]
+[09:05:27] [dwight] MCP server 'websearch' exited (code 1) [WARN]
+[09:05:56] [dwight] No agent sessions found. Run :DwightAgent first.
+[09:06:49] [dwight] Agentic bootstrap: scanning project...
+[09:06:49] [dwight] Agentic bootstrap: 4575 files found, starting agent...
+
+2026-04-06 09:06:49 ═══ Agent: You are bootstrapping a project with dwight pragma comments for AI-assisted development.
+
+## What ar ═══════════════════════════════════
+[09:06:49] 
+[09:06:49] Running in agentic mode (tool-use loop)
+[09:06:49] Pre-agent checkpoint (17 files)
+[09:06:50] 
+[09:06:50]   Execution ·····························
+[09:06:50] ❌ Unknown backend: opencode
+[09:06:50] 
+[09:06:50]   Results ·······························
+[09:06:50] FAILED | (0s)
+
+2026-04-06 09:06:50 ═══ Agent ended: FAILED | (0s) ═══════════════════════════════════
+[09:06:50] 
+[09:06:50]   Diff ··································
+[09:06:50] 
+[09:06:50] Uncommitted changes
+[09:06:50]    nvim/.config/nvim/.dwight/session.log | 11 +++++++++++
+[09:06:50]    tmux/.config/tmux/plugins/tmux        |  0
+[09:06:50]    2 files changed, 11 insertions(+)
+[09:06:50] 
+[09:06:50] Quickfix: 2 file(s) — :copen to review
+[09:06:50] :DwightDiffReview — full unified diff in a tab

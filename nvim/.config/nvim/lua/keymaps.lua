@@ -32,12 +32,14 @@ vim.keymap.set("n", "<leader>fc", builtin.colorscheme, { desc = "Change colorsch
 -- Bind <leader>fp to search your Neovim config files
 vim.keymap.set("n", "<leader>fC", function()
 	require("telescope.builtin").find_files({
-		cwd = vim.fn.stdpath("config")
+		cwd = vim.fn.stdpath("config"),
 	})
 end, { desc = "Find Private Config Files" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "List open buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
 vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Find recently opened files" })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "u", require("undotree").open, { desc = "Go to definition" })
 
 -- Minor remap from ThePrimeagen
 
@@ -93,7 +95,7 @@ vim.keymap.set("n", "<space>t", function()
 end)
 vim.keymap.set("t", "<C-l>", function()
 	---@diagnostic disable-next-line: deprecated
-	local chan = vim.api.nvim_buf_get_option(0, 'channel')
+	local chan = vim.api.nvim_buf_get_option(0, "channel")
 	if chan == 0 then
 		vim.notify("No terminal channel found", vim.log.levels.WARN)
 		return
@@ -123,5 +125,20 @@ vim.keymap.set("n", "<leader>mc", ":MoltenDelete<CR>", { desc = "Clear output" }
 -- Interrupt the running kernel (Stop stuck code)
 vim.keymap.set("n", "<leader>ms", ":MoltenInterrupt<CR>", { desc = "Stop/Interrupt kernel", silent = true })
 -- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+vim.keymap.set("n", "<leader>ip", function()
+	local venv = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX")
+	if venv ~= nil then
+		-- in the form of /home/benlubas/.virtualenvs/VENV_NAME
+		venv = string.match(venv, "/.+/(.+)")
+		vim.cmd(("MoltenInit %s"):format(venv))
+	else
+		vim.cmd("MoltenInit python3")
+	end
+end, { desc = "Initialize Molten for python3", silent = true })
+
+for i = 1, 8 do
+	vim.keymap.set({ "n", "t" }, "<Leader>" .. i, "<Cmd>tabnext " .. i .. "<CR>")
+end

@@ -24,7 +24,7 @@ return {
 						},
 					},
 				},
-				pylsp = { enabled = true },
+				basedpyright = { enabled = true },
 				tsserver = { enabled = true },
 				zls = { enabled = true }
 			}

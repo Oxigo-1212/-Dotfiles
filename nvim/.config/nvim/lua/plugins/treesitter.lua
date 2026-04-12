@@ -6,9 +6,13 @@ return {
 		lazy = false,
 		build = ":TSUpdate",
 		config = function()
+			-- Optional: Configure custom install directory (uses default if not set)
+			require("nvim-treesitter").setup({
+				install_dir = vim.fn.stdpath("data") .. "/site",
+			})
+
 			-- Install parsers (runs asynchronously, no-op if already installed)
 			require("nvim-treesitter").install({
-				"typescript",
 				"lua",
 				"vim",
 				"vimdoc",
@@ -18,9 +22,6 @@ return {
 				"rust",
 				"html",
 				"latex",
-				"kotlin",
-				"python",
-				"ocaml"
 			})
 
 			-- Enable highlighting and indentation globally for all filetypes

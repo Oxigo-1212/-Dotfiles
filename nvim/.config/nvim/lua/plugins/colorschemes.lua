@@ -92,7 +92,7 @@ return {
 		priority = 1000,
 		config = function()
 			require("lume").setup({
-				transparent = true
+				transparent = true,
 			})
 		end,
 	},
@@ -116,5 +116,13 @@ return {
 				},
 			})
 		end,
-	}
+	},
+	{
+		"Aejkatappaja/sora",
+		config = function()
+			require("sora").setup({
+				transparent = true,
+			})
+		end,
+	},
 }

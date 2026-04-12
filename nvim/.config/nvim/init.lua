@@ -16,10 +16,10 @@ vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.autochdir = true
+vim.opt.autochdir = false
 vim.opt.wrap = false
 vim.g.loaded_python3_provider = nil
-vim.g.python3_host_prog = vim.fn.expand('~/.config/nvim/pyvenv/bin/python3')
+vim.g.python3_host_prog = vim.fn.expand("~/.config/nvim/pyvenv/bin/python3")
 vim.g.vimtex_quickfix_enabled = 0
 vim.diagnostic.config({
 	virtual_text = true,
@@ -60,7 +60,6 @@ require("lazy").setup({
 function ColorMyPencils(color)
 	color = color or "rose-pine-moon"
 	vim.cmd.colorscheme(color)
-
 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
@@ -69,7 +68,8 @@ vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
 vim.cmd(":hi statusline guibg=NONE")
-ColorMyPencils()
+ColorMyPencils("rose-pine-moon")
+vim.cmd.packadd("nvim.undotree")
 require("multigrep").setup()
 require("nvim-highlight-colors").setup()
 require("fidget").setup({
@@ -258,3 +258,49 @@ require("luasnip").config.setup({
 --
 -- -- this will make it so the output shows up below the \`\`\` cell delimiter
 -- vim.g.molten_virt_lines_off_by_1 = true
+-- 1. Fetch the default settings from the lspconfig library
+-- 1. Define the config using the new native structure
+-- 1. Define the config with EXPLICIT settings
+-- 1. Clear any existing configs to prevent duplicates
+-- 1. Point to the Mason binary directly
+local mason_bin = vim.fn.expand("$HOME/.local/share/nvim/mason/bin/rust-analyzer")
+
+-- 2. Define the config (using the hyphenated name to override mason-lspconfig)
+vim.lsp.config("rust-analyzer", {
+	cmd = { mason_bin },
+	root_markers = { "Cargo.toml", ".git" },
+	settings = {
+		["rust-analyzer"] = {
+			-- Crucial for FAISS-cpu-git
+			procMacro = { enable = true },
+			cargo = {
+				buildScripts = { enable = true },
+				loadOutDirsFromCheck = true,
+			},
+			hover = {
+				actions = { enable = true },
+				documentation = { enable = true },
+			},
+			check = {
+				command = "clippy",
+				extraArgs = { "--no-deps" },
+			},
+		},
+	},
+})
+-- 1. Get the basedpyright configuration template
+local basedpyright_config = require("lspconfig.configs.basedpyright")
+
+-- 2. Modify the configuration to include your settings
+basedpyright_config.settings = {
+	basedpyright = {
+		analysis = {
+			typeCheckingMode = "standard",
+			autoSearchPaths = true,
+			useLibraryCodeForTypes = true,
+		},
+	},
+}
+
+-- 3. Use the new v0.11+ native way to register it
+vim.lsp.config("basedpyright", basedpyright_config)

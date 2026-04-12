@@ -1,3 +1,4 @@
+export MKLROOT=/opt/intel/oneapi/mkl/latest
 export NVM_DIR="$HOME/.nvm"
 source /usr/share/nvm/nvm.sh
 source /usr/share/nvm/bash_completion
@@ -6,16 +7,22 @@ export ZSH="$HOME/.oh-my-zsh"
 export ELECTRON_OZONE_PLATFORM_HINT=wayland
 export ELECTRON_ENABLE_WAYLAND_DMD=1
 export EDITOR=nvim
+export VISUAL=nvim
 export PATH="$HOME/walker/target/release:$PATH"
 export PATH="/opt/lampp/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
+export LIBRARY_PATH=/usr/lib:/usr/local/lib
+export LD_LIBRARY_PATH=/usr/lib:/usr/local/lib
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.was,time/bin:$PATH"
 export XMODIFIERS=@im=fcitx
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export MANPAGER="nvim +Man!"
 export MANWIDTH=999
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+ZSH_THEME="robbyrussell"
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/scripts/changecwd.sh
@@ -35,7 +42,7 @@ ZSH_HIGHLIGHT_STYLES[precommand]=fg=#2CF9ED,underline
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=#2CF9ED
 ZSH_HIGHLIGHT_STYLES[command]=fg=#2cf9ed
 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 # ~/.zshrc
 
@@ -58,14 +65,15 @@ export FZF_ALT_C_OPTS="--preview 'eza --icons=always --tree --color=always {} | 
 export FZF_TMUX=1
 export FZF_TMUX_OPTS="-p90%,70%"
 # -----------------------------
+set -o vi
 alias ls="eza --icons=always --long --git --no-filesize --color=always --no-time --no-user" 
-alias mysql-xampp='sudo mycli -u root'
 alias rm='trash-put'
 
 alias oxigo='tmux has-session -t Oxigo 2>/dev/null && tmux attach-session -t Oxigo || tmux new-session -s Oxigo'
 alias n='nvim'
 alias vim='nvim'
 alias z='zathura'
+alias sz="source $ZDOTDIR/.zshrc"
 
 bindkey -s '^[l' 'ls -a\n'
 
@@ -75,20 +83,3 @@ alias mpn='cp -r ~/Documents/latex/LaTeX-Templates/Homework/HomeworkTemplate.tex
 alias todo='nvim ~/Documents/todo.md'
 # Define a function to wrap nvim
 # Wrapper function for nvim
- nvim() {
-    local prev_dir=$PWD
-    local tmp_file="$HOME/.nvim_last_dir_$$"
-
-    # Pass the current shell's PID to Neovim
-    NVIM_SHELL_PID=$$ command nvim "$@"
-
-    if [[ -f "$tmp_file" ]]; then
-        local new_dir=$(cat "$tmp_file")
-        if [[ -n "$new_dir" && "$new_dir" != "$prev_dir" ]]; then
-            cd "$new_dir"
-        fi
-        # Clean up the file so it doesn't linger
-        rm -f "$tmp_file"
-    fi
-}
-. "$HOME/.local/bin/env"

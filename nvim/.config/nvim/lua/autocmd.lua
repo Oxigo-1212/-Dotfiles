@@ -40,7 +40,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 	desc = "highlight selection on yank",
 	callback = function()
-		vim.highlight.on_yank({ timeout = 200, visual = true })
+		vim.hl.on_yank({ timeout = 200, visual = true })
 	end,
 })
 
@@ -98,7 +98,6 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
 	end,
 })
 
-
 vim.api.nvim_create_autocmd("TermOpen", {
 	pattern = "*",
 	callback = function()
@@ -114,11 +113,11 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	end,
 })
 vim.o.autowriteall = true
-vim.api.nvim_create_autocmd({ 'InsertLeavePre', 'TextChanged', 'TextChangedP' }, {
-	pattern = '*',
+vim.api.nvim_create_autocmd({ "InsertLeavePre", "TextChanged", "TextChangedP" }, {
+	pattern = "*",
 	callback = function()
-		vim.cmd('silent! write')
-	end
+		vim.cmd("silent! write")
+	end,
 })
 
 -- Toggle Copilot completions (for blink.cmp)
