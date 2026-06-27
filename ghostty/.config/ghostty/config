@@ -7,9 +7,9 @@ font-family = Noto Color Emoji
 font-size = 14
 
 # Theme
-theme = ayu-midnight
+theme = lume
 
 # Window
 window-decoration = false
-# background-opacity = 0.98
+# background-opacity = 0.7
 gtk-tabs-location = hidden

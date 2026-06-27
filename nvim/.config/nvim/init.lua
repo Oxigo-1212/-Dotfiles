@@ -69,6 +69,7 @@ vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
 vim.cmd(":hi statusline guibg=NONE")
 ColorMyPencils("rose-pine-moon")
+-- vim.cmd.colorscheme("solarized-osaka")
 vim.cmd.packadd("nvim.undotree")
 require("multigrep").setup()
 require("nvim-highlight-colors").setup()
@@ -82,60 +83,80 @@ require("fidget").setup({
 require("keymaps")
 require("autocmd")
 require("layout")
--- require("lualine").setup({
--- 	options = {
--- 		icons_enabled = true,
--- 		theme = 'auto',
--- 		component_separators = { left = '', right = '' },
--- 		section_separators = { left = '', right = '' },
--- 		disabled_filetypes = {
--- 			statusline = {},
--- 			winbar = {},
--- 		},
--- 		ignore_focus = {},
--- 		always_divide_middle = true,
--- 		always_show_tabline = true,
--- 		globalstatus = false,
--- 		refresh = {
--- 			statusline = 1000,
--- 			tabline = 1000,
--- 			winbar = 1000,
--- 			refresh_time = 16, -- ~60fps
--- 			events = {
--- 				'WinEnter',
--- 				'BufEnter',
--- 				'BufWritePost',
--- 				'SessionLoadPost',
--- 				'FileChangedShellPost',
--- 				'VimResized',
--- 				'Filetype',
--- 				'CursorMoved',
--- 				'CursorMovedI',
--- 				'ModeChanged',
--- 			},
--- 		}
--- 	},
--- 	sections = {
--- 		lualine_a = { 'mode' },
--- 		lualine_b = { 'branch', 'diff', 'diagnostics' },
--- 		lualine_c = { 'filename' },
--- 		lualine_x = { 'encoding', 'fileformat', 'filetype' },
--- 		lualine_y = { 'progress' },
--- 		lualine_z = { 'location' }
--- 	},
--- 	inactive_sections = {
--- 		lualine_a = {},
--- 		lualine_b = {},
--- 		lualine_c = { 'filename' },
--- 		lualine_x = { 'location' },
--- 		lualine_y = {},
--- 		lualine_z = {}
--- 	},
--- 	tabline = {},
--- 	winbar = {},
--- 	inactive_winbar = {},
--- 	extensions = {}
--- })
+local function project_root()
+	local root =
+			vim.fs.dirname(vim.fs.find({ ".git", "package.json", "Cargo.toml", "pyproject.toml" }, { upward = true })[1])
+	return root and vim.fs.basename(root) or vim.fs.basename(vim.fn.getcwd())
+end
+
+require("lualine").setup({
+	options = {
+		icons_enabled = false,
+		theme = "auto",
+		disabled_filetypes = {
+			statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" },
+			winbar = {},
+		},
+		ignore_focus = {},
+		always_divide_middle = true,
+		always_show_tabline = true,
+		globalstatus = true,
+		refresh = {
+			statusline = 1000,
+			tabline = 1000,
+			winbar = 1000,
+			refresh_time = 16, -- ~60fps
+			events = {
+				"WinEnter",
+				"BufEnter",
+				"BufWritePost",
+				"SessionLoadPost",
+				"FileChangedShellPost",
+				"VimResized",
+				"Filetype",
+				"CursorMoved",
+				"CursorMovedI",
+				"ModeChanged",
+			},
+		},
+	},
+	sections = {
+		lualine_a = { "mode" },
+		lualine_b = { "branch" },
+		lualine_c = {
+			project_root,
+			"diagnostics",
+			{ "filename", path = 1 },
+		},
+		lualine_x = {
+			"diff",
+			"encoding",
+			"fileformat",
+			"filetype",
+		},
+		lualine_y = {
+			{ "progress", separator = " ",                  padding = { left = 1, right = 0 } },
+			{ "location", padding = { left = 0, right = 1 } },
+		},
+		lualine_z = {
+			function()
+				return os.date("%R")
+			end,
+		},
+	},
+	inactive_sections = {
+		lualine_a = {},
+		lualine_b = {},
+		lualine_c = { { "filename", path = 1 } },
+		lualine_x = { "location" },
+		lualine_y = {},
+		lualine_z = {},
+	},
+	tabline = {},
+	winbar = {},
+	inactive_winbar = {},
+	extensions = { "lazy" },
+})
 require("mason").setup()
 require("mini.surround").setup()
 require("mini.pairs").setup()
@@ -195,6 +216,28 @@ require("madol").setup({
 	},
 })
 require("telescope").setup({
+	defaults = {
+		preview = { treesitter = true },
+		color_devicons = true,
+		sorting_strategy = "ascending",
+		borderchars = {
+			"", -- top
+			"", -- right
+			"", -- bottom
+			"", -- left
+			"", -- top-left
+			"", -- top-right
+			"", -- bottom-right
+			"", -- bottom-left
+		},
+		path_displays = { "smart" },
+		layout_config = {
+			height = 100,
+			width = 400,
+			prompt_position = "top",
+			preview_cutoff = 40,
+		},
+	},
 	extensions = {
 		fzf = {
 			fuzzy = true,
@@ -227,42 +270,6 @@ require("telescope").load_extension("fidget")
 require("luasnip").config.setup({
 	enable_autosnippets = true,
 })
--- require('jupytext').setup({
--- 	style = "markdown",
--- 	output_extension = "md",
--- 	force_ft = "markdown",
--- 	-- Ensure Neovim uses the jupytext installed in your pyvenv
--- 	binary = vim.fn.expand("~/.config/nvim/pyvenv/bin/jupytext"),
--- })
--- -- Force jupytext to handle the file before other plugins intervene
--- vim.g.jupytext_filetype_map = { ipynb = "markdown" }
--- -- Disable common plugins that trigger "Binder" popups
--- vim.g.loaded_jupyter_nvim = 1
--- vim.g.loaded_jupyter_nvim = 1
--- vim.g.loaded_notebook_nvim = 1
--- vim.g.loaded_remote_notebook = 1 -- This specifically targets 'Binder' style popups
--- -- I find auto open annoying, keep in mind setting this option will require setting
--- -- a keybind for `:noautocmd MoltenEnterOutput` to open the output again
--- vim.g.molten_auto_open_output = false
---
--- this guide will be using image.nvim
--- Don't forget to setup and install the plugin if you want to view image outputs
--- vim.g.molten_image_provider = "image.nvim"
---
--- -- optional, I like wrapping. works for virt text and the output window
--- vim.g.molten_wrap_output = true
---
--- -- Output as virtual text. Allows outputs to always be shown, works with images, but can
--- -- be buggy with longer images
--- vim.g.molten_virt_text_output = true
---
--- -- this will make it so the output shows up below the \`\`\` cell delimiter
--- vim.g.molten_virt_lines_off_by_1 = true
--- 1. Fetch the default settings from the lspconfig library
--- 1. Define the config using the new native structure
--- 1. Define the config with EXPLICIT settings
--- 1. Clear any existing configs to prevent duplicates
--- 1. Point to the Mason binary directly
 local mason_bin = vim.fn.expand("$HOME/.local/share/nvim/mason/bin/rust-analyzer")
 
 -- 2. Define the config (using the hyphenated name to override mason-lspconfig)
@@ -285,6 +292,9 @@ vim.lsp.config("rust-analyzer", {
 				command = "clippy",
 				extraArgs = { "--no-deps" },
 			},
+			checkOnSave = {
+				command = "check",
+			},
 		},
 	},
 })
@@ -301,6 +311,10 @@ basedpyright_config.settings = {
 		},
 	},
 }
+vim.lsp.enable("clangd")
 
 -- 3. Use the new v0.11+ native way to register it
 vim.lsp.config("basedpyright", basedpyright_config)
+vim.lsp.enable("rust_analyzer")
+
+vim.g.vimtex_view_method = "sioyek"

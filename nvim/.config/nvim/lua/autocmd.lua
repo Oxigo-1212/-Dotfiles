@@ -105,13 +105,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		vim.opt_local.relativenumber = false
 	end,
 })
--- Force the filetype to markdown so Jupytext takes over
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = "*.ipynb",
-	callback = function()
-		vim.opt.filetype = "markdown"
-	end,
-})
 vim.o.autowriteall = true
 vim.api.nvim_create_autocmd({ "InsertLeavePre", "TextChanged", "TextChangedP" }, {
 	pattern = "*",

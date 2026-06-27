@@ -125,4 +125,66 @@ return {
 			})
 		end,
 	},
+	"shaunsingh/nord.nvim",
+	{
+		"sainnhe/everforest",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.g.everforest_background = "soft"
+			vim.g.everforest_transparent_background = 1
+		end,
+	},
+	{
+		"zenbones-theme/zenbones.nvim",
+		-- Optionally install Lush. Allows for more configuration or extending the colorscheme
+		-- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+		-- In Vim, compat mode is turned on as Lush only works in Neovim.
+		dependencies = "rktjmp/lush.nvim",
+		lazy = false,
+		priority = 1000,
+		-- you can set set configuration options here
+		-- config = function()
+		--     vim.g.zenbones_darken_comments = 45
+		--     vim.cmd.colorscheme('zenbones')
+		-- end
+	},
+	-- lazy
+	{
+		"ray-x/aurora",
+		init = function()
+			vim.g.aurora_italic = 1
+			vim.g.aurora_transparent = 1
+			vim.g.aurora_bold = 1
+		end,
+		config = function()
+			vim.cmd.colorscheme("aurora")
+			-- override defaults
+			vim.api.nvim_set_hl(0, "@number", { fg = "#e933e3" })
+		end,
+	},
+	{
+		"EdenEast/nightfox.nvim",
+		config = function()
+			require("nightfox").setup({
+				options = {
+					transparent = true,
+				},
+			})
+		end,
+	},
+	{
+		"craftzdog/solarized-osaka.nvim",
+		lazy = true,
+		priority = 1000,
+		opts = function()
+			return {
+				transparent = true,
+				styles = {
+					sidebars = "dark",
+					floats = "dark",
+				},
+			}
+		end,
+	},
 }
