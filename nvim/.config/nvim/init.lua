@@ -68,8 +68,14 @@ vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
 vim.cmd(":hi statusline guibg=NONE")
-ColorMyPencils("rose-pine-moon")
+ColorMyPencils("catppuccin-nvim")
 -- vim.cmd.colorscheme("solarized-osaka")
+vim.api.nvim_set_hl(0, "Cursor", {
+	bg = "NONE",
+	fg = "NONE",
+})
+vim.opt.cursorline = false
+vim.opt_local.cursorline = false
 vim.cmd.packadd("nvim.undotree")
 require("multigrep").setup()
 require("nvim-highlight-colors").setup()
@@ -83,80 +89,80 @@ require("fidget").setup({
 require("keymaps")
 require("autocmd")
 require("layout")
-local function project_root()
-	local root =
-			vim.fs.dirname(vim.fs.find({ ".git", "package.json", "Cargo.toml", "pyproject.toml" }, { upward = true })[1])
-	return root and vim.fs.basename(root) or vim.fs.basename(vim.fn.getcwd())
-end
+-- local function project_root()
+-- 	local root =
+-- 			vim.fs.dirname(vim.fs.find({ ".git", "package.json", "Cargo.toml", "pyproject.toml" }, { upward = true })[1])
+-- 	return root and vim.fs.basename(root) or vim.fs.basename(vim.fn.getcwd())
+-- end
 
-require("lualine").setup({
-	options = {
-		icons_enabled = false,
-		theme = "auto",
-		disabled_filetypes = {
-			statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" },
-			winbar = {},
-		},
-		ignore_focus = {},
-		always_divide_middle = true,
-		always_show_tabline = true,
-		globalstatus = true,
-		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
-			refresh_time = 16, -- ~60fps
-			events = {
-				"WinEnter",
-				"BufEnter",
-				"BufWritePost",
-				"SessionLoadPost",
-				"FileChangedShellPost",
-				"VimResized",
-				"Filetype",
-				"CursorMoved",
-				"CursorMovedI",
-				"ModeChanged",
-			},
-		},
-	},
-	sections = {
-		lualine_a = { "mode" },
-		lualine_b = { "branch" },
-		lualine_c = {
-			project_root,
-			"diagnostics",
-			{ "filename", path = 1 },
-		},
-		lualine_x = {
-			"diff",
-			"encoding",
-			"fileformat",
-			"filetype",
-		},
-		lualine_y = {
-			{ "progress", separator = " ",                  padding = { left = 1, right = 0 } },
-			{ "location", padding = { left = 0, right = 1 } },
-		},
-		lualine_z = {
-			function()
-				return os.date("%R")
-			end,
-		},
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { { "filename", path = 1 } },
-		lualine_x = { "location" },
-		lualine_y = {},
-		lualine_z = {},
-	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = { "lazy" },
-})
+-- require("lualine").setup({
+-- 	options = {
+-- 		icons_enabled = false,
+-- 		theme = "auto",
+-- 		disabled_filetypes = {
+-- 			statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" },
+-- 			winbar = {},
+-- 		},
+-- 		ignore_focus = {},
+-- 		always_divide_middle = true,
+-- 		always_show_tabline = true,
+-- 		globalstatus = true,
+-- 		refresh = {
+-- 			statusline = 1000,
+-- 			tabline = 1000,
+-- 			winbar = 1000,
+-- 			refresh_time = 16, -- ~60fps
+-- 			events = {
+-- 				"WinEnter",
+-- 				"BufEnter",
+-- 				"BufWritePost",
+-- 				"SessionLoadPost",
+-- 				"FileChangedShellPost",
+-- 				"VimResized",
+-- 				"Filetype",
+-- 				"CursorMoved",
+-- 				"CursorMovedI",
+-- 				"ModeChanged",
+-- 			},
+-- 		},
+-- 	},
+-- 	sections = {
+-- 		lualine_a = { "mode" },
+-- 		lualine_b = { "branch" },
+-- 		lualine_c = {
+-- 			project_root,
+-- 			"diagnostics",
+-- 			{ "filename", path = 1 },
+-- 		},
+-- 		lualine_x = {
+-- 			"diff",
+-- 			"encoding",
+-- 			"fileformat",
+-- 			"filetype",
+-- 		},
+-- 		lualine_y = {
+-- 			{ "progress", separator = " ",                  padding = { left = 1, right = 0 } },
+-- 			{ "location", padding = { left = 0, right = 1 } },
+-- 		},
+-- 		lualine_z = {
+-- 			function()
+-- 				return os.date("%R")
+-- 			end,
+-- 		},
+-- 	},
+-- 	inactive_sections = {
+-- 		lualine_a = {},
+-- 		lualine_b = {},
+-- 		lualine_c = { { "filename", path = 1 } },
+-- 		lualine_x = { "location" },
+-- 		lualine_y = {},
+-- 		lualine_z = {},
+-- 	},
+-- 	tabline = {},
+-- 	winbar = {},
+-- 	inactive_winbar = {},
+-- 	extensions = { "lazy" },
+-- })
 require("mason").setup()
 require("mini.surround").setup()
 require("mini.pairs").setup()
@@ -217,26 +223,26 @@ require("madol").setup({
 })
 require("telescope").setup({
 	defaults = {
-		preview = { treesitter = true },
-		color_devicons = true,
-		sorting_strategy = "ascending",
-		borderchars = {
-			"", -- top
-			"", -- right
-			"", -- bottom
-			"", -- left
-			"", -- top-left
-			"", -- top-right
-			"", -- bottom-right
-			"", -- bottom-left
-		},
-		path_displays = { "smart" },
-		layout_config = {
-			height = 100,
-			width = 400,
-			prompt_position = "top",
-			preview_cutoff = 40,
-		},
+		-- preview = { treesitter = true },
+		-- color_devicons = true,
+		-- sorting_strategy = "ascending",
+		-- borderchars = {
+		-- 	"", -- top
+		-- 	"", -- right
+		-- 	"", -- bottom
+		-- 	"", -- left
+		-- 	"", -- top-left
+		-- 	"", -- top-right
+		-- 	"", -- bottom-right
+		-- 	"", -- bottom-left
+		-- },
+		-- path_displays = { "smart" },
+		-- layout_config = {
+		-- 	height = 100,
+		-- 	width = 400,
+		-- 	prompt_position = "top",
+		-- 	preview_cutoff = 40,
+		-- },
 	},
 	extensions = {
 		fzf = {
@@ -270,7 +276,6 @@ require("telescope").load_extension("fidget")
 require("luasnip").config.setup({
 	enable_autosnippets = true,
 })
-local mason_bin = vim.fn.expand("$HOME/.local/share/nvim/mason/bin/rust-analyzer")
 
 -- 2. Define the config (using the hyphenated name to override mason-lspconfig)
 vim.lsp.config("rust-analyzer", {
@@ -292,9 +297,7 @@ vim.lsp.config("rust-analyzer", {
 				command = "clippy",
 				extraArgs = { "--no-deps" },
 			},
-			checkOnSave = {
-				command = "check",
-			},
+			checkOnSave = true,
 		},
 	},
 })
