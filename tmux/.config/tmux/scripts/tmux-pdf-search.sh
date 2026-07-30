@@ -10,5 +10,5 @@ PDF_FILE=$(find "$DOCUMENTS_DIR" -type f -name "*.pdf" 2>/dev/null | sed "s|$DOC
     --preview-window=up:1)
 
 if [ -n "$PDF_FILE" ]; then
-  setsid -f sioyek --new-instance "$DOCUMENTS_DIR/$PDF_FILE" </dev/null >/dev/null 2>&1
+  setsid -f /home/oxigo/projects/sioyek/build/sioyek --new-instance "$DOCUMENTS_DIR/$PDF_FILE" </dev/null >/dev/null 2>&1
 fi
