@@ -68,7 +68,7 @@ vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 vim.api.nvim_set_hl(0, "StatusLine", { fg = "#C5C9C7", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#A4A7A4", bg = "NONE" })
 vim.cmd(":hi statusline guibg=NONE")
-ColorMyPencils("catppuccin-nvim")
+-- ColorMyPencils("catppuccin-nvim")
 -- vim.cmd.colorscheme("solarized-osaka")
 vim.api.nvim_set_hl(0, "Cursor", {
 	bg = "NONE",
@@ -319,5 +319,9 @@ vim.lsp.enable("clangd")
 -- 3. Use the new v0.11+ native way to register it
 vim.lsp.config("basedpyright", basedpyright_config)
 vim.lsp.enable("rust_analyzer")
+vim.lsp.enable("kotlin_lsp")
+vim.lsp.config("kotlin_lsp", {
+	single_file_support = false,
+})
 
 vim.g.vimtex_view_method = "sioyek"
