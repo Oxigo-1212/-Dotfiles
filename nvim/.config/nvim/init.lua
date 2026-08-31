@@ -66,7 +66,7 @@ end
 
 vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 -- ColorMyPencils("catppuccin-nvim")
--- vim.cmd.colorscheme("solarized-osaka")
+vim.cmd.colorscheme("solarized-osaka")
 vim.api.nvim_set_hl(0, "Cursor", {
 	bg = "NONE",
 	fg = "NONE",
@@ -86,74 +86,74 @@ require("fidget").setup({
 require("keymaps")
 require("autocmd")
 require("layout")
--- local function project_root()
--- 	local root =
--- 			vim.fs.dirname(vim.fs.find({ ".git", "package.json", "Cargo.toml", "pyproject.toml" }, { upward = true })[1])
--- 	return root and vim.fs.basename(root) or vim.fs.basename(vim.fn.getcwd())
--- end
+local function project_root()
+	local root =
+			vim.fs.dirname(vim.fs.find({ ".git", "package.json", "Cargo.toml", "pyproject.toml" }, { upward = true })[1])
+	return root and vim.fs.basename(root) or vim.fs.basename(vim.fn.getcwd())
+end
 
-require("lualine").setup({
-	options = {
-		icons_enabled = false,
-		theme = "auto",
-		component_separators = { left = "|", right = "|" },
-		section_separators = { left = "", right = "" },
-		disabled_filetypes = {
-			statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" },
-			winbar = {},
-		},
-		ignore_focus = {},
-		always_divide_middle = true,
-		always_show_tabline = true,
-		globalstatus = true,
-		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
-			refresh_time = 16, -- ~60fps
-			events = {
-				"WinEnter",
-				"BufEnter",
-				"BufWritePost",
-				"SessionLoadPost",
-				"FileChangedShellPost",
-				"VimResized",
-				"Filetype",
-				"CursorMoved",
-				"CursorMovedI",
-				"ModeChanged",
-			},
-		},
-	},
-	sections = {
-		lualine_a = { "mode" },
-		lualine_b = { "branch" },
-		lualine_c = {
-			{ "filename", path = 1 },
-		},
-		lualine_x = {
-			"fileformat",
-			"encoding",
-			"filetype",
-		},
-		lualine_y = {
-			"progress",
-		},
-		lualine_z = { "location" },
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { { "filename", path = 1 } },
-		lualine_x = { "location" },
-		lualine_y = {},
-		lualine_z = {},
-	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = { "lazy" },
-})
+-- require("lualine").setup({
+-- 	options = {
+-- 		icons_enabled = false,
+-- 		theme = "auto",
+-- 		component_separators = { left = "|", right = "|" },
+-- 		section_separators = { left = "", right = "" },
+-- 		disabled_filetypes = {
+-- 			statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" },
+-- 			winbar = {},
+-- 		},
+-- 		ignore_focus = {},
+-- 		always_divide_middle = true,
+-- 		always_show_tabline = true,
+-- 		globalstatus = true,
+-- 		refresh = {
+-- 			statusline = 1000,
+-- 			tabline = 1000,
+-- 			winbar = 1000,
+-- 			refresh_time = 16, -- ~60fps
+-- 			events = {
+-- 				"WinEnter",
+-- 				"BufEnter",
+-- 				"BufWritePost",
+-- 				"SessionLoadPost",
+-- 				"FileChangedShellPost",
+-- 				"VimResized",
+-- 				"Filetype",
+-- 				"CursorMoved",
+-- 				"CursorMovedI",
+-- 				"ModeChanged",
+-- 			},
+-- 		},
+-- 	},
+-- 	sections = {
+-- 		lualine_a = { "mode" },
+-- 		lualine_b = { "branch" },
+-- 		lualine_c = {
+-- 			{ "filename", path = 1 },
+-- 		},
+-- 		lualine_x = {
+-- 			"fileformat",
+-- 			"encoding",
+-- 			"filetype",
+-- 		},
+-- 		lualine_y = {
+-- 			"progress",
+-- 		},
+-- 		lualine_z = { "location" },
+-- 	},
+-- 	inactive_sections = {
+-- 		lualine_a = {},
+-- 		lualine_b = {},
+-- 		lualine_c = { { "filename", path = 1 } },
+-- 		lualine_x = { "location" },
+-- 		lualine_y = {},
+-- 		lualine_z = {},
+-- 	},
+-- 	tabline = {},
+-- 	winbar = {},
+-- 	inactive_winbar = {},
+-- 	extensions = { "lazy" },
+-- })
 require("mason").setup()
 require("mini.surround").setup()
 require("mini.pairs").setup()
@@ -267,6 +267,38 @@ require("telescope").load_extension("fidget")
 require("luasnip").config.setup({
 	enable_autosnippets = true,
 })
+require("solarized-osaka").setup({
+	on_highlights = function(hl, c)
+		local prompt = "#2d3149"
+		hl.TelescopeNormal = {
+			bg = c.bg_dark,
+			fg = c.fg_dark,
+		}
+		hl.TelescopeBorder = {
+			bg = c.bg_dark,
+			fg = c.bg_dark,
+		}
+		hl.TelescopePromptNormal = {
+			bg = prompt,
+		}
+		hl.TelescopePromptBorder = {
+			bg = prompt,
+			fg = prompt,
+		}
+		hl.TelescopePromptTitle = {
+			bg = prompt,
+			fg = prompt,
+		}
+		hl.TelescopePreviewTitle = {
+			bg = c.bg_dark,
+			fg = c.bg_dark,
+		}
+		hl.TelescopeResultsTitle = {
+			bg = c.bg_dark,
+			fg = c.bg_dark,
+		}
+	end,
+})
 
 -- 2. Define the config (using the hyphenated name to override mason-lspconfig)
 vim.lsp.config("rust-analyzer", {
@@ -314,5 +346,11 @@ vim.lsp.enable("kotlin_lsp")
 vim.lsp.config("kotlin_lsp", {
 	single_file_support = false,
 })
-
+vim.lsp.config("tsserver", {
+	cmd = { "typescript-language-server", "--stdio" },
+	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+	root_markers = { "tsconfig.json", "package.json", ".git" },
+})
+vim.lsp.enable("tsserver")
 vim.g.vimtex_view_method = "sioyek"
+vim.cmd("set completeopt+=noselect")

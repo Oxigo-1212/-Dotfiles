@@ -2,7 +2,7 @@
 # term = xterm
 
 # Font
-font-family = JetBrainsMono Nerd Font Mono
+font-family = Jetbrains Mono Nerd Font
 font-family = Noto Color Emoji
 font-size = 14
 
@@ -12,5 +12,5 @@ theme = noctalia
 
 # Window
 window-decoration = false 
-# background-opacity = 0.8
+# background-opacity = 0.9
 gtk-tabs-location = hidden
