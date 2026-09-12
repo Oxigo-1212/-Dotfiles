@@ -1,6 +1,6 @@
 return {
 	"saghen/blink.cmp",
-	dependencies = { "rafamadriz/friendly-snippets", "fang2hou/blink-copilot" },
+	dependencies = { "rafamadriz/friendly-snippets", "fang2hou/blink-copilot", "mikavilpas/blink-ripgrep.nvim" },
 	version = "1.*",
 	opts = {
 		cmdline = {
@@ -42,7 +42,7 @@ return {
 		},
 		sources = {
 			default = function()
-				local sources_list = { "lsp", "path", "snippets", "buffer" }
+				local sources_list = { "lsp", "path", "snippets", "buffer", "ripgrep"}
 				if vim.g.copilot_enabled ~= false then
 					table.insert(sources_list, "copilot")
 				end
@@ -58,6 +58,14 @@ return {
 					score_offset = -100,
 					async = true,
 				},
+				ripgrep = {
+          module = "blink-ripgrep",
+          name = "Ripgrep",
+          -- see the full configuration below for all available options
+          ---@module "blink-ripgrep"
+          ---@type blink-ripgrep.Options
+          opts = {},
+			},
 			},
 		},
 		fuzzy = { implementation = "prefer_rust_with_warning" },

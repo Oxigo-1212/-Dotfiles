@@ -25,7 +25,7 @@ return {
 					},
 				},
 				basedpyright = { enabled = true },
-				tsserver = { enabled = true },
+				tsc = { enabled = true },
 				zls = { enabled = true }
 			}
 		},
@@ -42,5 +42,23 @@ return {
 		config = function()
 			require("ocaml").setup()
 		end
+	},
+	{
+		"rachartier/tiny-code-action.nvim",
+		dependencies = {
+			-- optional picker via telescope
+			{ "nvim-telescope/telescope.nvim" },
+			-- optional picker via fzf-lua
+			{ "ibhagwan/fzf-lua" },
+			-- .. or via snacks
+			{
+				"folke/snacks.nvim",
+				opts = {
+					terminal = {},
+				}
+			}
+		},
+		event = "LspAttach",
+		opts = {},
 	}
 }

@@ -12,5 +12,6 @@ theme = noctalia
 
 # Window
 window-decoration = false 
-# background-opacity = 0.9
+background-opacity = 0.8
+background-blur = false
 gtk-tabs-location = hidden

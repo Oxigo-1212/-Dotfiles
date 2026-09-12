@@ -10,6 +10,7 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 	{ "nvim-mini/mini.pairs",              version = "*" },
+	{ 'nvim-mini/mini.ai',                 version = '*' },
 	{
 		"stevearc/oil.nvim",
 		dependencies = { { "nvim-mini/mini.icons", opts = {} } },
@@ -29,14 +30,6 @@ return {
 	{ "gbprod/yanky.nvim" },
 	{ "mason-org/mason.nvim" },
 	{ "mrcjkb/rustaceanvim",  version = "^6", lazy = false },
-	{
-		"mason-org/mason-lspconfig.nvim",
-		opts = {},
-		dependencies = {
-			{ "mason-org/mason.nvim", opts = {} },
-			"neovim/nvim-lspconfig",
-		},
-	},
 	{
 		"L3MON4D3/LuaSnip",
 		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
@@ -69,4 +62,5 @@ return {
 		---@type render.md.UserConfig
 		opts = {},
 	},
+	{ "neovim/nvim-lspconfig" }
 }

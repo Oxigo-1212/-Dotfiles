@@ -64,9 +64,9 @@ function ColorMyPencils(color)
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
-vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
+-- vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 -- ColorMyPencils("catppuccin-nvim")
-vim.cmd.colorscheme("solarized-osaka")
+vim.cmd.colorscheme("tokyonight-storm")
 vim.api.nvim_set_hl(0, "Cursor", {
 	bg = "NONE",
 	fg = "NONE",
@@ -154,9 +154,13 @@ end
 -- 	inactive_winbar = {},
 -- 	extensions = { "lazy" },
 -- })
+require("tiny-inline-diagnostic").setup({
+	preset = "minimal",
+})
 require("mason").setup()
 require("mini.surround").setup()
 require("mini.pairs").setup()
+require("mini.ai").setup()
 require("kanso").setup({
 	transparent = true,
 })
@@ -214,26 +218,26 @@ require("madol").setup({
 })
 require("telescope").setup({
 	defaults = {
-		-- preview = { treesitter = true },
-		-- color_devicons = true,
-		-- sorting_strategy = "ascending",
-		-- borderchars = {
-		-- 	"", -- top
-		-- 	"", -- right
-		-- 	"", -- bottom
-		-- 	"", -- left
-		-- 	"", -- top-left
-		-- 	"", -- top-right
-		-- 	"", -- bottom-right
-		-- 	"", -- bottom-left
-		-- },
-		-- path_displays = { "smart" },
-		-- layout_config = {
-		-- 	height = 100,
-		-- 	width = 400,
-		-- 	prompt_position = "top",
-		-- 	preview_cutoff = 40,
-		-- },
+		preview = { treesitter = true },
+		color_devicons = true,
+		sorting_strategy = "ascending",
+		borderchars = {
+			"", -- top
+			"", -- right
+			"", -- bottom
+			"", -- left
+			"", -- top-left
+			"", -- top-right
+			"", -- bottom-right
+			"", -- bottom-left
+		},
+		path_displays = { "smart" },
+		layout_config = {
+			height = 100,
+			width = 400,
+			prompt_position = "top",
+			preview_cutoff = 40,
+		},
 	},
 	extensions = {
 		fzf = {
@@ -260,9 +264,6 @@ require("telescope").setup({
 	},
 })
 require("telescope").load_extension("fzf")
-require("telescope.builtin").lsp_workspace_symbols({
-	symbols = { "class", "function", "method" },
-})
 require("telescope").load_extension("fidget")
 require("luasnip").config.setup({
 	enable_autosnippets = true,
@@ -346,11 +347,6 @@ vim.lsp.enable("kotlin_lsp")
 vim.lsp.config("kotlin_lsp", {
 	single_file_support = false,
 })
-vim.lsp.config("tsserver", {
-	cmd = { "typescript-language-server", "--stdio" },
-	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-	root_markers = { "tsconfig.json", "package.json", ".git" },
-})
-vim.lsp.enable("tsserver")
 vim.g.vimtex_view_method = "sioyek"
 vim.cmd("set completeopt+=noselect")
+-- require("statusline").setup()
