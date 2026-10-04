@@ -2,7 +2,7 @@ return {
 	{
 		"mason-org/mason-lspconfig.nvim",
 		dependencies = {
-			{ "mason-org/mason.nvim", opts = {} },
+			{ "mason-org/mason.nvim", opts = { } },
 			"neovim/nvim-lspconfig",
 		},
 		opts = {
@@ -17,6 +17,7 @@ return {
 							workspace = {
 								library = vim.api.nvim_get_runtime_file("", true),
 								checkThirdParty = false,
+								ignoreDir = { "xmake.lua" },
 							},
 							telemetry = {
 								enable = false,
@@ -29,7 +30,9 @@ return {
 				zls = { enabled = true }
 			}
 		},
-		config = function(_, opts)
+		config = function (_, opts)
+			require("lsp")
+
 			for server, config in pairs(opts.servers) do
 				vim.lsp.config(server, config)
 				vim.lsp.enable(server)
@@ -39,7 +42,7 @@ return {
 	{ 'WhoIsSethDaniel/mason-tool-installer.nvim' },
 	{
 		"tarides/ocaml.nvim",
-		config = function()
+		config = function ()
 			require("ocaml").setup()
 		end
 	},
@@ -54,11 +57,11 @@ return {
 			{
 				"folke/snacks.nvim",
 				opts = {
-					terminal = {},
+					terminal = { },
 				}
 			}
 		},
 		event = "LspAttach",
-		opts = {},
+		opts = { },
 	}
 }

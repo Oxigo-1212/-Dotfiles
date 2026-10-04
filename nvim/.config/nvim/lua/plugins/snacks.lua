@@ -1,6 +1,7 @@
 return {
 	"folke/snacks.nvim",
 	opts = {
+		scroll = { enabled = true },
 		styles = {
 			-- INFO: show top right of screen
 			snacks_image = {

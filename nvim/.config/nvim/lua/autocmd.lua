@@ -134,3 +134,54 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "BufLeave" }, {
 		end
 	end,
 })
+vim.api.nvim_create_user_command("GitDiffHead", function()
+	local file = vim.api.nvim_buf_get_name(0)
+
+	if file == "" then
+		vim.notify("Buffer has no file", vim.log.levels.ERROR)
+		return
+	end
+
+	local root = vim.fn.systemlist("git -C " ..
+	vim.fn.shellescape(vim.fn.fnamemodify(file, ":h")) .. " rev-parse --show-toplevel")[1]
+
+	if vim.v.shell_error ~= 0 or not root then
+		vim.notify("Not inside a Git repository", vim.log.levels.ERROR)
+		return
+	end
+
+	local relative = vim.fn.fnamemodify(file, ":p"):sub(#root + 2)
+
+	local head = vim.fn.systemlist({
+		"git",
+		"-C",
+		root,
+		"show",
+		"HEAD:" .. relative,
+	})
+
+	if vim.v.shell_error ~= 0 then
+		vim.notify("File does not exist in HEAD", vim.log.levels.ERROR)
+		return
+	end
+
+	-- Current buffer
+	vim.cmd("diffthis")
+
+	-- Open HEAD version
+	vim.cmd("vnew")
+
+	vim.bo.buftype = "nofile"
+	vim.bo.bufhidden = "wipe"
+	vim.bo.swapfile = false
+	vim.bo.modifiable = true
+
+	vim.api.nvim_buf_set_lines(0, 0, -1, false, head)
+
+	vim.bo.modifiable = false
+	vim.bo.filetype = vim.filetype.match({ filename = file }) or ""
+
+	vim.api.nvim_buf_set_name(0, relative .. " [HEAD]")
+
+	vim.cmd("diffthis")
+end, {})

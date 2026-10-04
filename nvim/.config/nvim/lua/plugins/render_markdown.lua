@@ -4,6 +4,7 @@ return {
 	opts = {
 		latex = {
 			enabled = false,
+			render_modes = { 'n', 'c', 't' },
 		}
 	},
 }

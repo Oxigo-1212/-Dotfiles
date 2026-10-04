@@ -32,6 +32,7 @@ vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Open buffer navigat
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files in cwd" })
 vim.keymap.set("n", "<leader>fd", builtin.git_status, { desc = "Find files in cwd" })
 vim.keymap.set("n", "<leader>fc", builtin.colorscheme, { desc = "Change colorscheme" })
+vim.keymap.set("n", "<leader>fs", ":Telescope luasnip<CR>", { desc = "Change colorscheme" })
 -- Bind <leader>fp to search your Neovim config files
 vim.keymap.set("n", "<leader>fC", function()
 	require("telescope.builtin").find_files({
@@ -117,3 +118,6 @@ vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set("n", "<leader>b", "<cmd>Bufferin<cr>", { desc = "Toggle Bufferin" })
 vim.keymap.set("n", "<leader>o", "<cmd>Otree<cr>", { desc = "Toggle Bufferin" })
+vim.keymap.set("n", "<leader>dc", ":VimtexCompileSS<cr>", { desc = "Compile latex file" })
+vim.keymap.set("n", "<leader>gd", "<cmd>GitDiffHead<CR>",
+	{ desc = "Diff current file against HEAD" })

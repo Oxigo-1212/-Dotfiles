@@ -7,11 +7,10 @@ return {
 			keymap = { preset = "inherit" },
 			completion = { menu = { auto_show = true } },
 		},
-		-- My super-TAB configuration
 		keymap = {
 			["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
 			["<C-e>"] = { "hide", "fallback" },
-			["<Tab>"] = { "accept", "fallback" },
+			["<C-CR>"] = { "accept", "fallback" },
 
 			["<Up>"] = { "select_prev", "fallback" },
 			["<Down>"] = { "select_next", "fallback" },
