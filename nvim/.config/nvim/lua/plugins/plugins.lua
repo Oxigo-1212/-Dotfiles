@@ -5,26 +5,22 @@ return {
 		tag = "v0.2.0",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
-	{ "nvim-mini/mini.pairs", version = "*" },
-	{ 'nvim-mini/mini.ai', version = '*' },
+	{ "nvim-mini/mini.pairs",              version = "*" },
+	{ 'nvim-mini/mini.ai',                 version = '*' },
 	{
 		"stevearc/oil.nvim",
-		dependencies = { { "nvim-mini/mini.icons", opts = { } } },
+		dependencies = { { "nvim-mini/mini.icons", opts = {} } },
 		lazy = false,
 	},
 	{ "nvim-lua/plenary.nvim" },
 	{
 		"stevearc/quicker.nvim",
 		ft = "qf",
-		opts = { },
+		opts = {},
 	},
 	{ "gbprod/yanky.nvim" },
 	{ "mason-org/mason.nvim" },
-	{ "mrcjkb/rustaceanvim", version = "^6", lazy = false },
+	{ "mrcjkb/rustaceanvim",  version = "^6", lazy = false },
 	{
 		"L3MON4D3/LuaSnip",
 		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
@@ -34,7 +30,7 @@ return {
 		"lervag/vimtex",
 		lazy = false, -- we don't want to lazy load VimTeX
 		-- tag = "v2.15", -- uncomment to pin to a specific release
-		init = function ()
+		init = function()
 			-- VimTeX configuration goes here, e.g.
 			vim.g.vimtex_compiler_latexmk_engines = {
 				_ = "-xelatex",
@@ -53,7 +49,7 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" }, -- if you use the mini.nvim suite
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-		opts = { },
+		opts = {},
 	},
 	{ "neovim/nvim-lspconfig" }
 }

@@ -66,7 +66,9 @@ end
 
 -- vim.o.statusline = "%{&fileformat}[%{&filetype}] %F%=%l/%L %l:%c %P"
 -- ColorMyPencils("catppuccin-nvim")
-vim.cmd.colorscheme("tokyonight-storm")
+-- vim.cmd.colorscheme("tokyonight")
+--
+vim.cmd("colorscheme ayu-mirage")
 vim.api.nvim_set_hl(0, "Cursor", {
 	bg = "NONE",
 	fg = "NONE",
@@ -86,74 +88,12 @@ require("fidget").setup({
 require("keymaps")
 require("autocmd")
 require("layout")
-local function project_root()
-	local root =
-			vim.fs.dirname(vim.fs.find({ ".git", "package.json", "Cargo.toml", "pyproject.toml" }, { upward = true })[1])
-	return root and vim.fs.basename(root) or vim.fs.basename(vim.fn.getcwd())
-end
+-- local function project_root()
+-- 	local root =
+-- 			vim.fs.dirname(vim.fs.find({ ".git", "package.json", "Cargo.toml", "pyproject.toml" }, { upward = true })[1])
+-- 	return root and vim.fs.basename(root) or vim.fs.basename(vim.fn.getcwd())
+-- end
 
--- require("lualine").setup({
--- 	options = {
--- 		icons_enabled = false,
--- 		theme = "auto",
--- 		component_separators = { left = "|", right = "|" },
--- 		section_separators = { left = "", right = "" },
--- 		disabled_filetypes = {
--- 			statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" },
--- 			winbar = {},
--- 		},
--- 		ignore_focus = {},
--- 		always_divide_middle = true,
--- 		always_show_tabline = true,
--- 		globalstatus = true,
--- 		refresh = {
--- 			statusline = 1000,
--- 			tabline = 1000,
--- 			winbar = 1000,
--- 			refresh_time = 16, -- ~60fps
--- 			events = {
--- 				"WinEnter",
--- 				"BufEnter",
--- 				"BufWritePost",
--- 				"SessionLoadPost",
--- 				"FileChangedShellPost",
--- 				"VimResized",
--- 				"Filetype",
--- 				"CursorMoved",
--- 				"CursorMovedI",
--- 				"ModeChanged",
--- 			},
--- 		},
--- 	},
--- 	sections = {
--- 		lualine_a = { "mode" },
--- 		lualine_b = { "branch" },
--- 		lualine_c = {
--- 			{ "filename", path = 1 },
--- 		},
--- 		lualine_x = {
--- 			"fileformat",
--- 			"encoding",
--- 			"filetype",
--- 		},
--- 		lualine_y = {
--- 			"progress",
--- 		},
--- 		lualine_z = { "location" },
--- 	},
--- 	inactive_sections = {
--- 		lualine_a = {},
--- 		lualine_b = {},
--- 		lualine_c = { { "filename", path = 1 } },
--- 		lualine_x = { "location" },
--- 		lualine_y = {},
--- 		lualine_z = {},
--- 	},
--- 	tabline = {},
--- 	winbar = {},
--- 	inactive_winbar = {},
--- 	extensions = { "lazy" },
--- })
 require("tiny-inline-diagnostic").setup({
 	preset = "minimal",
 })
@@ -231,13 +171,13 @@ require("telescope").setup({
 			"", -- bottom-right
 			"", -- bottom-left
 		},
-		path_displays = { "smart" },
-		layout_config = {
-			height = 100,
-			width = 400,
-			prompt_position = "top",
-			preview_cutoff = 40,
-		},
+		-- 	-- path_displays = { "smart" },
+		-- 	layout_config = {
+		-- 		height = 100,
+		-- 		width = 400,
+		-- 		prompt_position = "top",
+		-- 		preview_cutoff = 40,
+		-- 	},
 	},
 	extensions = {
 		fzf = {
@@ -247,21 +187,21 @@ require("telescope").setup({
 			case_mode = "smart_case",
 		},
 	},
-	pickers = {
-		buffers = {
-			initial_mode = "normal",
-		},
-		find_files = {
-			hidden = true,
-			initial_mode = "normal",
-		},
-		diagnostics = {
-			initial_mode = "normal",
-		},
-		colorscheme = {
-			initial_mode = "normal",
-		},
-	},
+	-- pickers = {
+	-- 	buffers = {
+	-- 		initial_mode = "normal",
+	-- 	},
+	-- 	find_files = {
+	-- 		hidden = true,
+	-- 		initial_mode = "normal",
+	-- 	},
+	-- 	diagnostics = {
+	-- 		initial_mode = "normal",
+	-- 	},
+	-- 	colorscheme = {
+	-- 		initial_mode = "normal",
+	-- 	},
+	-- },
 })
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("fidget")

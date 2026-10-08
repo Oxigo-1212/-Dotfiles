@@ -10,7 +10,7 @@ return {
 		keymap = {
 			["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
 			["<C-e>"] = { "hide", "fallback" },
-			["<C-CR>"] = { "accept", "fallback" },
+			["<Tab>"] = { "accept", "fallback" },
 
 			["<Up>"] = { "select_prev", "fallback" },
 			["<Down>"] = { "select_next", "fallback" },
@@ -41,7 +41,7 @@ return {
 		},
 		sources = {
 			default = function()
-				local sources_list = { "lsp", "path", "snippets", "buffer", "ripgrep"}
+				local sources_list = { "lsp", "path", "snippets", "buffer", "ripgrep" }
 				if vim.g.copilot_enabled ~= false then
 					table.insert(sources_list, "copilot")
 				end
@@ -58,13 +58,13 @@ return {
 					async = true,
 				},
 				ripgrep = {
-          module = "blink-ripgrep",
-          name = "Ripgrep",
-          -- see the full configuration below for all available options
-          ---@module "blink-ripgrep"
-          ---@type blink-ripgrep.Options
-          opts = {},
-			},
+					module = "blink-ripgrep",
+					name = "Ripgrep",
+					-- see the full configuration below for all available options
+					---@module "blink-ripgrep"
+					---@type blink-ripgrep.Options
+					opts = {},
+				},
 			},
 		},
 		fuzzy = { implementation = "prefer_rust_with_warning" },

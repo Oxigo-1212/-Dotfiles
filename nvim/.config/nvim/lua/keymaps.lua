@@ -56,7 +56,7 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- greatest remap ever
-vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("x", "<leader>P", [["_dP]])
 -- next greatest remap ever : asbjornHaland
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
@@ -119,5 +119,4 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set("n", "<leader>b", "<cmd>Bufferin<cr>", { desc = "Toggle Bufferin" })
 vim.keymap.set("n", "<leader>o", "<cmd>Otree<cr>", { desc = "Toggle Bufferin" })
 vim.keymap.set("n", "<leader>dc", ":VimtexCompileSS<cr>", { desc = "Compile latex file" })
-vim.keymap.set("n", "<leader>gd", "<cmd>GitDiffHead<CR>",
-	{ desc = "Diff current file against HEAD" })
+vim.keymap.set("n", "<leader>gd", "<cmd>GitDiffHead<CR>", { desc = "Diff current file against HEAD" })
