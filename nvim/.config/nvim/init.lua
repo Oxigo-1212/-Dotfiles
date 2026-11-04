@@ -1,6 +1,7 @@
 vim.cmd([[set noswapfile]])
 vim.cmd([[hi @lsp.type.number gui=italic]])
 vim.opt.backup = false
+vim.o.cmdheight = 0
 vim.opt.fillchars = { eob = " " }
 vim.opt.startofline = false
 vim.opt.splitbelow = true
@@ -20,42 +21,52 @@ vim.opt.autochdir = false
 vim.opt.wrap = false
 vim.g.loaded_python3_provider = nil
 vim.g.python3_host_prog = vim.fn.expand("~/.config/nvim/pyvenv/bin/python3")
-vim.g.vimtex_quickfix_enabled = 0
 vim.diagnostic.config({
 	virtual_text = true,
 	underline = true,
 })
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-	if vim.v.shell_error ~= 0 then
-		vim.api.nvim_echo({
-			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out,                            "WarningMsg" },
-			{ "\nPress any key to exit..." },
-		}, true, {})
-		vim.fn.getchar()
-		os.exit(1)
-	end
-end
-
-vim.opt.rtp:prepend(lazypath)
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
--- Setup lazy.nvim
-require("lazy").setup({
-	spec = {
-		{ import = "plugins" },
-	},
-	checker = {
-		enabled = true,
-		notify = false,
+-- Floating cmdline and messages (:h ui2). Timeout and cmdline height moved to 'messagesopt'.
+vim.opt.messagesopt:append({ "maxheight:50", "timeout:3000" })
+require("vim._core.ui2").enable({
+	enable = true,
+	msg = {
+		targets = {
+			default = "msg", -- any kind not listed below
+			empty = "cmd",
+			bufwrite = "msg",
+			confirm = "cmd",
+			emsg = "pager",
+			echo = "msg",
+			echomsg = "msg",
+			echoerr = "pager",
+			completion = "cmd",
+			list_cmd = "pager",
+			lua_error = "pager",
+			lua_print = "msg",
+			progress = "pager",
+			rpc_error = "pager",
+			quickfix = "msg",
+			search_cmd = "cmd",
+			search_count = "cmd",
+			shell_cmd = "pager",
+			shell_err = "pager",
+			shell_out = "pager",
+			shell_ret = "msg",
+			undo = "msg",
+			verbose = "pager",
+			wildlist = "cmd",
+			wmsg = "msg",
+			typed_cmd = "cmd",
+		},
+		dialog = { height = 0.5 },
+		msg = { height = 0.3 },
+		pager = { height = 0.5 },
 	},
 })
+require("plugins")
+require("config_p")
 
 function ColorMyPencils(color)
 	color = color or "rose-pine-moon"
@@ -68,7 +79,7 @@ end
 -- ColorMyPencils("catppuccin-nvim")
 -- vim.cmd.colorscheme("tokyonight")
 --
-vim.cmd("colorscheme ayu-mirage")
+vim.cmd("colorscheme catppuccin-nvim")
 vim.api.nvim_set_hl(0, "Cursor", {
 	bg = "NONE",
 	fg = "NONE",
@@ -77,216 +88,13 @@ vim.opt.cursorline = false
 vim.opt_local.cursorline = false
 vim.cmd.packadd("nvim.undotree")
 require("multigrep").setup()
-require("nvim-highlight-colors").setup()
-require("fidget").setup({
-	notification = {
-		window = {
-			winblend = 0,
-		},
-	},
-})
+require("lsp")
 require("keymaps")
 require("autocmd")
 require("layout")
+require("tabline")
 -- local function project_root()
 -- 	local root =
 -- 			vim.fs.dirname(vim.fs.find({ ".git", "package.json", "Cargo.toml", "pyproject.toml" }, { upward = true })[1])
 -- 	return root and vim.fs.basename(root) or vim.fs.basename(vim.fn.getcwd())
 -- end
-
-require("tiny-inline-diagnostic").setup({
-	preset = "minimal",
-})
-require("mason").setup()
-require("mini.surround").setup()
-require("mini.pairs").setup()
-require("mini.ai").setup()
-require("kanso").setup({
-	transparent = true,
-})
-require("oil").setup({
-	default_file_explorer = true,
-	delete_to_trash = true,
-	skip_confirm_for_simple_edits = true,
-	columns = {
-		"icon",
-		"permissions",
-	},
-	view_options = {
-		show_hidden = false,
-	},
-	win_options = {
-		wrap = true,
-		winbar = "%{v:lua.require('oil').get_current_dir()}",
-	},
-	use_default_keymaps = false,
-	keymaps = {
-		-- Press 'yp' (yank path) to copy the current directory to your clipboard
-		["yp"] = {
-			desc = "Copy current directory path",
-			callback = function()
-				local dir = require("oil").get_current_dir()
-				vim.fn.setreg("+", dir)
-				print("Copied: " .. dir)
-			end,
-		},
-		["g?"] = { "actions.show_help", mode = "n" },
-		["<CR>"] = "actions.select",
-		["<C-t>"] = { "actions.select", opts = { tab = true } },
-		["<C-p>"] = "actions.preview",
-		["<C-c>"] = { "actions.close", mode = "n" },
-		["gr"] = "actions.refresh",
-		["-"] = { "actions.parent", mode = "n" },
-		["_"] = { "actions.open_cwd", mode = "n" },
-		["`"] = { "actions.cd", mode = "n" },
-		["g~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
-		["gs"] = { "actions.change_sort", mode = "n" },
-		["gx"] = "actions.open_external",
-		["g."] = { "actions.toggle_hidden", mode = "n" },
-		["g\\"] = { "actions.toggle_trash", mode = "n" },
-	},
-})
-require("madol").setup({
-	latex = {
-		snippets = {
-			["math-dollars"] = false,
-			["math-brackets"] = true,
-			["greek-tex"] = false,
-			["greek-unicode"] = true,
-		},
-	},
-})
-require("telescope").setup({
-	defaults = {
-		preview = { treesitter = true },
-		color_devicons = true,
-		sorting_strategy = "ascending",
-		borderchars = {
-			"", -- top
-			"", -- right
-			"", -- bottom
-			"", -- left
-			"", -- top-left
-			"", -- top-right
-			"", -- bottom-right
-			"", -- bottom-left
-		},
-		-- 	-- path_displays = { "smart" },
-		-- 	layout_config = {
-		-- 		height = 100,
-		-- 		width = 400,
-		-- 		prompt_position = "top",
-		-- 		preview_cutoff = 40,
-		-- 	},
-	},
-	extensions = {
-		fzf = {
-			fuzzy = true,
-			override_generic_sorter = true,
-			override_file_sorter = true,
-			case_mode = "smart_case",
-		},
-	},
-	-- pickers = {
-	-- 	buffers = {
-	-- 		initial_mode = "normal",
-	-- 	},
-	-- 	find_files = {
-	-- 		hidden = true,
-	-- 		initial_mode = "normal",
-	-- 	},
-	-- 	diagnostics = {
-	-- 		initial_mode = "normal",
-	-- 	},
-	-- 	colorscheme = {
-	-- 		initial_mode = "normal",
-	-- 	},
-	-- },
-})
-require("telescope").load_extension("fzf")
-require("telescope").load_extension("fidget")
-require("luasnip").config.setup({
-	enable_autosnippets = true,
-})
-require("solarized-osaka").setup({
-	on_highlights = function(hl, c)
-		local prompt = "#2d3149"
-		hl.TelescopeNormal = {
-			bg = c.bg_dark,
-			fg = c.fg_dark,
-		}
-		hl.TelescopeBorder = {
-			bg = c.bg_dark,
-			fg = c.bg_dark,
-		}
-		hl.TelescopePromptNormal = {
-			bg = prompt,
-		}
-		hl.TelescopePromptBorder = {
-			bg = prompt,
-			fg = prompt,
-		}
-		hl.TelescopePromptTitle = {
-			bg = prompt,
-			fg = prompt,
-		}
-		hl.TelescopePreviewTitle = {
-			bg = c.bg_dark,
-			fg = c.bg_dark,
-		}
-		hl.TelescopeResultsTitle = {
-			bg = c.bg_dark,
-			fg = c.bg_dark,
-		}
-	end,
-})
-
--- 2. Define the config (using the hyphenated name to override mason-lspconfig)
-vim.lsp.config("rust-analyzer", {
-	cmd = { mason_bin },
-	root_markers = { "Cargo.toml", ".git" },
-	settings = {
-		["rust-analyzer"] = {
-			-- Crucial for FAISS-cpu-git
-			procMacro = { enable = true },
-			cargo = {
-				buildScripts = { enable = true },
-				loadOutDirsFromCheck = true,
-			},
-			hover = {
-				actions = { enable = true },
-				documentation = { enable = true },
-			},
-			check = {
-				command = "clippy",
-				extraArgs = { "--no-deps" },
-			},
-			checkOnSave = true,
-		},
-	},
-})
--- 1. Get the basedpyright configuration template
-local basedpyright_config = require("lspconfig.configs.basedpyright")
-
--- 2. Modify the configuration to include your settings
-basedpyright_config.settings = {
-	basedpyright = {
-		analysis = {
-			typeCheckingMode = "standard",
-			autoSearchPaths = true,
-			useLibraryCodeForTypes = true,
-		},
-	},
-}
-vim.lsp.enable("clangd")
-
--- 3. Use the new v0.11+ native way to register it
-vim.lsp.config("basedpyright", basedpyright_config)
-vim.lsp.enable("rust_analyzer")
-vim.lsp.enable("kotlin_lsp")
-vim.lsp.config("kotlin_lsp", {
-	single_file_support = false,
-})
-vim.g.vimtex_view_method = "sioyek"
-vim.cmd("set completeopt+=noselect")
--- require("statusline").setup()

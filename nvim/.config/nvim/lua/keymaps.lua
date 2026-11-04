@@ -1,7 +1,7 @@
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-vim.keymap.set("n", "<S-L>", ":bnext<CR>")
-vim.keymap.set("n", "<S-H>", ":bprevious<CR>")
+vim.keymap.set("n", "<S-l>", "<cmd>tabnext<CR>")
+vim.keymap.set("n", "<S-h>", "<cmd>tabprevious<CR>")
 vim.keymap.set({ "n", "x" }, "<leader>la", function()
 	require("tiny-code-action").code_action()
 end, { noremap = true, silent = true })
@@ -30,7 +30,13 @@ vim.keymap.set("n", "<C-M-Right>", ":vertical resize +2<CR>", { desc = "Increase
 vim.keymap.set("n", "<leader>bd", ":bdelete!<CR>", { desc = "Force delete buffer" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Open buffer navigation" })
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files in cwd" })
-vim.keymap.set("n", "<leader>fd", builtin.git_status, { desc = "Find files in cwd" })
+-- Git: lazygit (snacks) and codediff binds from craftzdog/dotfiles (plugins/keymaps.lua).
+vim.keymap.set("n", "<leader>gg", function()
+	Snacks.lazygit()
+end, { desc = "Lazygit" })
+vim.keymap.set("n", "<leader>dv", "<cmd>CodeDiff<cr>", { desc = "Toggle CodeDiff" })
+vim.keymap.set("n", "<leader>dh", "<cmd>CodeDiff history %<cr>", { desc = "File history (current file)" })
+vim.keymap.set("n", "<leader>dH", "<cmd>CodeDiff history<cr>", { desc = "File history (repo)" })
 vim.keymap.set("n", "<leader>fc", builtin.colorscheme, { desc = "Change colorscheme" })
 vim.keymap.set("n", "<leader>fs", ":Telescope luasnip<CR>", { desc = "Change colorscheme" })
 -- Bind <leader>fp to search your Neovim config files
@@ -65,47 +71,47 @@ vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww ~/.config/tmux/scripts/tmux-sessionizer<CR>")
 
-vim.keymap.set("n", "<space>t", function()
-	-- Check if a terminal buffer already exists
-	local term_buf = nil
-	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-		if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buftype == "terminal" then
-			term_buf = buf
-			break
-		end
-	end
-
-	-- Check if terminal is already visible in a window
-	if term_buf then
-		for _, win in ipairs(vim.api.nvim_list_wins()) do
-			if vim.api.nvim_win_get_buf(win) == term_buf then
-				-- Terminal already visible, just focus it
-				vim.api.nvim_set_current_win(win)
-				return
-			end
-		end
-		-- Terminal exists but not visible, open it in a new window
-		vim.cmd.split()
-		vim.api.nvim_win_set_buf(0, term_buf)
-		vim.cmd.wincmd("J")
-		vim.api.nvim_win_set_height(0, 10)
-	else
-		-- No terminal exists, create a new one
-		vim.cmd.vnew()
-		vim.cmd.term()
-		vim.cmd.wincmd("J")
-		vim.api.nvim_win_set_height(0, 10)
-	end
-end)
-vim.keymap.set("t", "<C-l>", function()
-	---@diagnostic disable-next-line: deprecated
-	local chan = vim.api.nvim_buf_get_option(0, "channel")
-	if chan == 0 then
-		vim.notify("No terminal channel found", vim.log.levels.WARN)
-		return
-	end
-	vim.api.nvim_feedkeys("clear\r", "t", false)
-end)
+-- vim.keymap.set("n", "<space>t", function()
+-- 	-- Check if a terminal buffer already exists
+-- 	local term_buf = nil
+-- 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+-- 		if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buftype == "terminal" then
+-- 			term_buf = buf
+-- 			break
+-- 		end
+-- 	end
+--
+-- 	-- Check if terminal is already visible in a window
+-- 	if term_buf then
+-- 		for _, win in ipairs(vim.api.nvim_list_wins()) do
+-- 			if vim.api.nvim_win_get_buf(win) == term_buf then
+-- 				-- Terminal already visible, just focus it
+-- 				vim.api.nvim_set_current_win(win)
+-- 				return
+-- 			end
+-- 		end
+-- 		-- Terminal exists but not visible, open it in a new window
+-- 		vim.cmd.split()
+-- 		vim.api.nvim_win_set_buf(0, term_buf)
+-- 		vim.cmd.wincmd("J")
+-- 		vim.api.nvim_win_set_height(0, 10)
+-- 	else
+-- 		-- No terminal exists, create a new one
+-- 		vim.cmd.vnew()
+-- 		vim.cmd.term()
+-- 		vim.cmd.wincmd("J")
+-- 		vim.api.nvim_win_set_height(0, 10)
+-- 	end
+-- end)
+-- vim.keymap.set("t", "<C-l>", function()
+-- 	---@diagnostic disable-next-line: deprecated
+-- 	local chan = vim.api.nvim_buf_get_option(0, "channel")
+-- 	if chan == 0 then
+-- 		vim.notify("No terminal channel found", vim.log.levels.WARN)
+-- 		return
+-- 	end
+-- 	vim.api.nvim_feedkeys("clear\r", "t", false)
+-- end)
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("n", "<leader>w", function()
 	local is_wrap_enabled = vim.wo.wrap
@@ -116,7 +122,12 @@ end, { desc = "Toggle line wrap" })
 
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-vim.keymap.set("n", "<leader>b", "<cmd>Bufferin<cr>", { desc = "Toggle Bufferin" })
 vim.keymap.set("n", "<leader>o", "<cmd>Otree<cr>", { desc = "Toggle Bufferin" })
 vim.keymap.set("n", "<leader>dc", ":VimtexCompileSS<cr>", { desc = "Compile latex file" })
-vim.keymap.set("n", "<leader>gd", "<cmd>GitDiffHead<CR>", { desc = "Diff current file against HEAD" })
+vim.keymap.set("n", "tn", "<cmd>tabnew<CR>", { desc = "Create a new tab" })
+vim.keymap.set("n", "tc", "<cmd>tabclose<CR>", { desc = "Close a tab" })
+vim.keymap.set("n", "zr", "<cmd>restart<CR>", { desc = "Restart the neovim client" })
+vim.keymap.set("n", "<C-c>", function()
+	local mc_ns = vim.api.nvim_create_namespace("nvim.multicursor")
+	vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end, { desc = "clear multicursor" })
