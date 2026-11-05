@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Pick a directory and open it as a new herdr workspace.
+dir=$(find ~ -mindepth 1 -maxdepth 3 -type d -not -path '*/.*' 2>/dev/null | fzf) || exit 0
+herdr workspace create --cwd "$dir" --label "$(basename "$dir")" --focus >/dev/null
