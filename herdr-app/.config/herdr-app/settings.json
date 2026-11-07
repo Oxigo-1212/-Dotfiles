@@ -1,0 +1,14 @@
+{
+  "zoom": 1.3,
+  "sounds": {
+    "enabled": true
+  },
+  "font": "Iosevka Nerd Font",
+  "font_ligatures": false,
+  "ui_font": "SF Pro Display",
+  "minimum_contrast": 1.0,
+  "theme": {
+    "light": "catppuccin-latte",
+    "dark": "catppuccin-mocha"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "root",
+  "cloned_from": {
+    "name": "terminals",
+    "version": "0.1.13"
+  },
+  "type": "column",
+  "children": [
+    {
+      "id": "tabs",
+      "type": "block",
+      "content": {
+        "mod": "terminals-bar-catppuccin"
+      },
+      "size": {
+        "px": 26
+      },
+      "window_drag": true
+    },
+    {
+      "id": "main",
+      "type": "block",
+      "content": {
+        "tab": "active",
+        "pane": {
+          "header": {
+            "content": {
+              "mod": "terminals-pane-catppuccin"
+            },
+            "height": 22
+          },
+          "background": "#00000000",
+          "border": {
+            "width": 0,
+            "color": "border"
+          },
+          "focus": {
+            "width": 0,
+            "color": "accent"
+          },
+          "radius": 0,
+          "gap": 8,
+          "lone": true
+        }
+      }
+    }
+  ],
+  "background": "#181825b3",
+  "padding": [
+    6,
+    6
+  ],
+  "font_size": 15,
+  "gap": 2,
+  "titlebar": "none",
+  "traffic_lights": [
+    16,
+    18
+  ],
+  "terminal_opacity": 0
+}

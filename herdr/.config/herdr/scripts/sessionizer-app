@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Pick a directory and open it as a Herdr app space; reuse the space if that folder is already open.
+dir=$(find ~ -mindepth 1 -maxdepth 3 -type d -not -path '*/.*' 2>/dev/null | fzf) || exit 0
+id=$(herdr-app ls | jq -r --arg d "$dir" '.spaces[] | select(.folder == $d) | .id' | head -n1)
+if [ -n "$id" ]; then
+  herdr-app do space.select --id "$id" >/dev/null
+else
+  herdr-app do space.new --name "$(basename "$dir")" --folder "$dir" >/dev/null
+fi
