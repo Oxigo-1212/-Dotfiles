@@ -13,7 +13,7 @@
         "mod": "terminals-bar-catppuccin"
       },
       "size": {
-        "px": 26
+        "px": 40
       },
       "window_drag": true
     },

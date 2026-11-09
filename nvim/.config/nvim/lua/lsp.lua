@@ -27,7 +27,7 @@ vim.lsp.config("kotlin_lsp", {
 	single_file_support = false,
 })
 
-vim.lsp.enable({ "clangd", "ts_ls", "rust_analyzer", "kotlin_lsp", "pyright" })
+vim.lsp.enable({ "clangd", "ts_ls", "rust_analyzer", "kotlin_lsp", "pyright", "markdown-oxide" })
 
 -- xmake.lua is a Lua file, so only start xmake_ls for that file name.
 vim.api.nvim_create_autocmd("BufEnter", {

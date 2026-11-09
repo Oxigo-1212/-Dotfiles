@@ -188,11 +188,6 @@ require("fidget").setup({
 
 -- Completion and snippets ----------------------------------------------------
 
-require("codeium").setup({
-	enable_cmp_source = false,
-	virtual_text = { enabled = false },
-})
-
 require("blink.cmp").setup({
 	cmdline = {
 		keymap = { preset = "inherit" },
@@ -224,11 +219,10 @@ require("blink.cmp").setup({
 		},
 	},
 	sources = {
-		default = { "lsp", "path", "ripgrep", "codeium" },
+		default = { "lsp", "path", "ripgrep" },
 		providers = {
 			-- No buffer words, even when the LSP has nothing.
 			lsp = { score_offset = 1000, fallbacks = {} },
-			codeium = { name = "Codeium", module = "codeium.blink", score_offset = -100, async = true },
 			ripgrep = { module = "blink-ripgrep", name = "Ripgrep", opts = {} },
 		},
 	},

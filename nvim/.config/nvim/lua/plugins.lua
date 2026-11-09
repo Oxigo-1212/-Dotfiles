@@ -75,7 +75,6 @@ vim.pack.add({
 	-- Completion and snippets
 	{ src = gh("L3MON4D3/LuaSnip"), version = vim.version.range("2") },
 	gh("rafamadriz/friendly-snippets"),
-	gh("Exafunction/windsurf.nvim"),
 	gh("mikavilpas/blink-ripgrep.nvim"),
 	{ src = gh("saghen/blink.cmp"), version = vim.version.range("1") },
 	"https://gitlab.com/repetitivesin/madol.nvim",

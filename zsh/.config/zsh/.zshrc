@@ -1,5 +1,8 @@
 # ~~~~~~~~~~~~~~~~~~~~ Environment ~~~~~~~~~~~~~~~~~~~~
 
+# Clear settings inherited from the retired local Claude proxy.
+unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN
+
 export TZ='Asia/Jakarta'
 export EDITOR=nvim
 export VISUAL=nvim
@@ -18,12 +21,17 @@ export MKLROOT=/opt/intel/oneapi/mkl/latest
 export LIBRARY_PATH=/usr/lib:/usr/local/lib
 export LD_LIBRARY_PATH=/usr/lib:/usr/local/lib
 
+export GUROBI_HOME="/home/oxigo/Documents/research/SAT/gurobi1303/linux64"
+export LD_LIBRARY_PATH="$GUROBI_HOME/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export GRB_LICENSE_FILE="$HOME/gurobi.lic"
+export PATH="$PATH:/home/oxigo/Documents/research/SAT/cplex/bin/x86-64_linux"
+
 export BUN_INSTALL="$HOME/.bun"
 export WASMTIME_HOME="$HOME/.wasmtime"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export NVM_DIR="$HOME/.nvm"
+export USE_BUILTIN_RIGREP=0
 
-export ANTHROPIC_BASE_URL="http://localhost:8317"
 
 # ~~~~~~~~~~~~~~~~~~~~ Node.js ~~~~~~~~~~~~~~~~~~~~
 
@@ -35,17 +43,19 @@ source /usr/share/nvm/install-nvm-exec
 
 # Keep the existing priority of local tools and inherited PATH entries.
 typeset -U path PATH
+
 path=(
-    "$PNPM_HOME"
-    "$HOME/.cargo/bin"
-    "$HOME/.local/bin"
-    /opt/lampp/bin
-    "$HOME/walker/target/release"
-    "$HOME/.cache/.bun/bin"
-    "$BUN_INSTALL/bin"
-    "$WASMTIME_HOME/bin"
-    $path
-    "${GOPATH:-$HOME/go}/bin"
+	"$GUROBI_HOME/bin"
+	"$PNPM_HOME"
+	"$HOME/.cargo/bin"
+	"$HOME/.local/bin"
+	/opt/lampp/bin
+	"$HOME/walker/target/release"
+	"$HOME/.cache/.bun/bin"
+	"$BUN_INSTALL/bin"
+	"$WASMTIME_HOME/bin"
+	$path
+	"${GOPATH:-$HOME/go}/bin"
 )
 
 # Remove duplicate entries and non-existent directories.
@@ -62,8 +72,10 @@ setopt appendhistory sharehistory hist_ignore_space hist_ignore_dups
 # ~~~~~~~~~~~~~~~~~~~~ Oh My Zsh ~~~~~~~~~~~~~~~~~~~~
 
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
-plugins=(git fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
+# ZSH_THEME="robbyrussell"
+plugins=(git golang fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
+# Load local completions before Oh My Zsh runs compinit.
+fpath=("$ZDOTDIR/completions" $fpath)
 source "$ZSH/oh-my-zsh.sh"
 
 ZSH_HIGHLIGHT_STYLES[default]=none
@@ -83,13 +95,14 @@ ZSH_HIGHLIGHT_STYLES[comment]=fg=8
 source "$HOME/scripts/changecwd.sh"
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(starship init zsh)"
 
 # Bun completions.
 [[ -s "$BUN_INSTALL/_bun" ]] && source "$BUN_INSTALL/_bun"
 
 # ~~~~~~~~~~~~~~~~~~~~ FZF ~~~~~~~~~~~~~~~~~~~~
 
-export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git $HOME"
+export FZF_DEFAULT_COMMAND="fd --hidden --exclude .git . $HOME"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 export FZF_DEFAULT_OPTS="--height 50% --layout=default --border --color=hl:#2dd4bf"
@@ -107,7 +120,10 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
+# Use fzf-tab's own layout for pnpm's large completion list.
+zstyle ':fzf-tab:complete:pnpm:*' use-fzf-default-opts no
 zstyle ':fzf-tab:*' switch-group '<' '>'
+
 
 # ~~~~~~~~~~~~~~~~~~~~ Key bindings ~~~~~~~~~~~~~~~~~~~~
 
@@ -120,7 +136,7 @@ bindkey -s '^[l' 'ls -a\n'
 
 # ~~~~~~~~~~~~~~~~~~~~ Aliases ~~~~~~~~~~~~~~~~~~~~
 
-alias ls="eza --icons=always --long --git --no-filesize --color=always --no-time --no-user"
+alias ls="eza --icons=always --git --no-filesize --color=always --no-time --no-user -G"
 alias rm='trash-put'
 alias oxigo='tmux has-session -t Oxigo 2>/dev/null && tmux attach-session -t Oxigo || tmux new-session -s Oxigo'
 alias n='nvim'
@@ -131,3 +147,9 @@ alias mln='cp -r ~/Documents/latex/LaTeX-Templates/"Lecture Notes"/Main.tex ~/Do
 alias mpn='cp -r ~/Documents/latex/LaTeX-Templates/Homework/HomeworkTemplate.tex -t .'
 alias todo='nvim ~/Documents/todo.md'
 alias audio-reset='systemctl --user restart wireplumber pipewire pipewire-pulse'
+alias info='info --vi-keys'
+
+chpwd() { ls; }
+
+# bun completions
+[ -s "/home/oxigo/.bun/_bun" ] && source "/home/oxigo/.bun/_bun"
