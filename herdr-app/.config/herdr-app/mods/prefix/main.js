@@ -13,6 +13,7 @@ const BINDS = {
   "k": ["space.prev", {}],
   "down": ["pane.go", { direction: "down" }],
   "up": ["pane.go", { direction: "up" }],
+  "z": ["pane.zoom", {}],
   "p": ["pane.split", { direction: "down", argv: [`${home()}/.config/tmux/scripts/tmux-pdf-search.sh`] }],
   "ctrl-f": ["pane.split", { direction: "down", argv: [`${home()}/.config/herdr/scripts/sessionizer-app`] }],
 };

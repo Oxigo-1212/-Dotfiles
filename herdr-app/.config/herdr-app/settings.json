@@ -1,9 +1,8 @@
 {
-  "zoom": 1.3,
+  "zoom": 1.4,
   "sounds": {
     "enabled": false
   },
-  "font": "Iosevka Nerd Font",
   "font_size": 11.0,
   "font_ligatures": false,
   "ui_font": "SF Pro Display",

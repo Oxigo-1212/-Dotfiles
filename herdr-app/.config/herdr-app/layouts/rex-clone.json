@@ -13,7 +13,7 @@
         "mod": "terminals-bar-catppuccin"
       },
       "size": {
-        "px": 40
+        "px": 30
       },
       "window_drag": true
     },
@@ -23,12 +23,6 @@
       "content": {
         "tab": "active",
         "pane": {
-          "header": {
-            "content": {
-              "mod": "terminals-pane-catppuccin"
-            },
-            "height": 22
-          },
           "background": "surface",
           "border": {
             "width": 1,
@@ -47,11 +41,11 @@
   ],
   "background": "background",
   "padding": [
-    6,
-    6
+    0,
+    3
   ],
   "font_size": 15,
-  "gap": 2,
+  "gap": 0,
   "titlebar": "none",
   "traffic_lights": [
     16,
